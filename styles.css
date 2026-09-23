@@ -479,15 +479,15 @@ h3 {
 }
 
 .alumni .col-name {
-  width: 25%;
+  width: 20%;
 }
 
 .alumni .col-pos {
-  width: 30%;
+  width: 25%;
 }
 
 .alumni .col-where {
-  width: 35%;
+  width: 45%;
 }
 
 .alumni td {
@@ -794,29 +794,13 @@ h3 {
   opacity: 0.97;
 }
 
-/* Two-column flex (rather than the original's 50/50 column pair, which is what
-   made the biography reach only half the page): the headshot keeps its natural
-   200px width and the biography text is a block entirely to its right, so no
-   line wraps under the image and the heading rule is confined to the text
-   column. The block spans the full container, matching the banner. */
+/* The biography is text only (the portrait beside it was removed), so the block
+   simply spans the container, matching the banner above it. */
 .pi-bio {
-  display: flex;
-  align-items: flex-start;
-  gap: 34px;
-}
-
-.pi-bio-img {
-  flex: 0 0 200px;
-  width: 200px;
-  height: auto;
   margin: 0;
-  border-radius: 0;
-  border: 0;
 }
 
 .pi-bio-text {
-  flex: 1 1 auto;
-  min-width: 0;      /* allow the text column to shrink instead of overflowing */
   margin: 0;
 }
 
@@ -831,16 +815,6 @@ h3 {
 }
 
 @media (max-width: 560px) {
-  .pi-bio {
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .pi-bio-img {
-    flex: none;
-    width: 200px;
-    max-width: 100%;
-  }
 }
 
 .pi-container {
