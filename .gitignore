@@ -1,0 +1,13 @@
+# macOS
+.DS_Store
+._*
+
+# Editor / tooling
+.vscode/
+.idea/
+*.swp
+
+# Local scratch
+/tmp/
+*.log
+.backups/
