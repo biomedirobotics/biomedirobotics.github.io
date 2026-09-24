@@ -582,6 +582,23 @@ h3 + .section-note {
   padding: 28px 0 34px;
 }
 
+/* Footer content is centred in the same 980px column as the page: the credit
+   note first, the icon row beneath it. The markup already places the note
+   before the icons, so the column direction alone stacks them. */
+.footer-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  text-align: center;
+}
+
+.footer-note {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
 .social-icons {
   display: flex;
   justify-content: center;
