@@ -217,6 +217,14 @@ h3 {
   color: var(--muted);
 }
 
+/* The alumni section carries its own note under each <h3> instead of one under
+   the <h2>. The -16px above cancels the h2's 22px bottom margin; an h3 only has
+   10px, so without this the note rides up into the heading. -4px keeps the same
+   6px gap. */
+h3 + .section-note {
+  margin: -4px 0 14px;
+}
+
 /* --- Hero (homepage) ---------------------------------------------------- */
 
 .hero {
