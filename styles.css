@@ -24,6 +24,9 @@
   --callout-border: #cfe0e6;
   --serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
   --sans: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
+  /* One corner radius for every image and video on the site, so the media
+     corners match wherever they appear. */
+  --radius-media: 10px;
   color-scheme: light;
 }
 
@@ -266,7 +269,7 @@ h3 + .section-note {
 .showcase a {
   display: block;
   line-height: 0;
-  border-radius: 10px;
+  border-radius: var(--radius-media);
   overflow: hidden;
   border: 1px solid var(--rule);
   background: var(--bg-alt);
@@ -310,7 +313,7 @@ h3 + .section-note {
 
 .pub-media img,
 .pub-media video {
-  border-radius: 8px;
+  border-radius: var(--radius-media);
   border: 1px solid var(--rule);
 }
 
@@ -432,7 +435,7 @@ h3 + .section-note {
 .pillar img {
   width: 100%;
   display: block;
-  border-radius: 8px;
+  border-radius: var(--radius-media);
   border: 1px solid var(--rule);
 }
 
@@ -467,7 +470,7 @@ h3 + .section-note {
   width: 100%;
   aspect-ratio: 1 / 1;
   object-fit: cover;
-  border-radius: 12px;
+  border-radius: var(--radius-media);
   border: 1px solid var(--rule);
   display: block;
 }
@@ -589,7 +592,7 @@ h3 + .section-note {
 
 .robot-grid img {
   width: 100%;
-  border-radius: 12px;
+  border-radius: var(--radius-media);
   border: 1px solid var(--rule);
   display: block;
 }
