@@ -419,6 +419,32 @@ h3 + .section-note {
   color: var(--accent-dark);
 }
 
+/* Two-column research pillar: image on the left, prose on the right. Mirrors
+   the .pub grid so the research page matches the rest of the site. */
+.pillar {
+  display: grid;
+  grid-template-columns: minmax(220px, 300px) 1fr;
+  gap: 16px 28px;
+  align-items: start;
+}
+
+.pillar img {
+  width: 100%;
+  display: block;
+  border-radius: 8px;
+  border: 1px solid var(--rule);
+}
+
+/* Without this the prose would sit a paragraph-margin below the image, since
+   the grid is start-aligned and browsers give <p> a 1em top margin. */
+.pillar-text p:first-child {
+  margin-top: 0;
+}
+
+.pillar-text p:last-child {
+  margin-bottom: 0;
+}
+
 .talks li {
   margin-bottom: 10px;
 }
@@ -697,6 +723,16 @@ h3 + .section-note {
   }
 
   .pub-media {
+    max-width: 440px;
+    margin: 0 auto;
+  }
+
+  .pillar {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .pillar img {
     max-width: 440px;
     margin: 0 auto;
   }
