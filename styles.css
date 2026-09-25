@@ -757,6 +757,62 @@ h3 + .section-note {
   }
 }
 
+/* --- Publication-style entry list ---------------------------------------- */
+/* The flat newest-first list shared by the publications page and the events
+   page: each entry is a row with its content on the left and the year
+   right-aligned. */
+
+.scholar-list {
+    list-style: none;
+    margin: 0 0 8px;
+    padding: 0;
+}
+
+.scholar-list>li {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 58px;
+    gap: 2px 20px;
+    padding: 15px 8px 16px;
+    border-bottom: 1px solid var(--rule);
+}
+
+.scholar-title {
+    font-family: var(--serif);
+    font-size: 1.04rem;
+    font-weight: 600;
+    line-height: 1.35;
+}
+
+.scholar-authors {
+    margin: 5px 0 0;
+    font-size: 0.92rem;
+    line-height: 1.5;
+    color: var(--muted);
+}
+
+.scholar-venue {
+    margin: 3px 0 0;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+}
+
+.scholar-year {
+    font-size: 0.95rem;
+    color: var(--muted);
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 620px) {
+    .scholar-list>li {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .scholar-year {
+        text-align: left;
+    }
+}
+
 /* --- Publications list (dense, grouped by year) ------------------------ */
 
 .pub-list {
