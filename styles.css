@@ -350,23 +350,6 @@ h3 + .section-note {
   margin: 2px 0;
 }
 
-.pub-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px 18px;
-  font-size: 0.93rem;
-  margin: 7px 0 0;
-}
-
-.pub-links a {
-  white-space: nowrap;
-}
-
-.pub-links i {
-  margin-right: 3px;
-  font-size: 0.88em;
-}
-
 .tldr {
   font-size: 0.94rem;
   color: var(--ink-soft);
@@ -817,15 +800,92 @@ h3 + .section-note {
   color: var(--muted);
 }
 
-.pub-list .pub-links {
-  display: inline;
-  margin: 0 0 0 6px;
-  font-size: 0.93rem;
-}
-
 .person-focus {
   color: var(--muted);
   font-size: 0.86rem;
+}
+
+/* --- Publications page: structured citation entries --------------------- */
+/* On this page a list is a citation list, so each entry is laid out as a block
+   of fields — authors, then the title in the site serif, then the venue and any
+   links — inside a year rail. Scoped to .pub-page because events.html reuses
+   .pub-list for workshop links, which keeps the dense bulleted treatment. */
+
+.pub-page .pub-list {
+  margin: 0;
+  padding: 0;
+}
+
+/* The base rule's bullet, indent and per-entry rule are replaced here by field
+   structure and space between entries. */
+.pub-page .pub-list li {
+  padding: 0;
+  border-bottom: 0;
+  font-size: 0.97rem;
+  line-height: 1.55;
+}
+
+.pub-page .pub-list li::before {
+  content: none;
+}
+
+.pub-page .pub-list li + li {
+  margin-top: 18px;
+}
+
+.pub-page .pub-authors {
+  display: block;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+/* Entry order is title, authors, venue — the title leads, so it takes no top
+   margin and the authors/venue follow as their own lines. */
+/* The paper title takes the same setting as .person-name in people.html:
+   semibold serif. The <em> wrapper is markup, so font-style is reset to keep the
+   two looking identical. */
+.pub-page .pub-list li > em {
+  display: block;
+  font-family: var(--serif);
+  font-size: 1.07rem;
+  font-weight: 600;
+  font-style: normal;
+  line-height: 1.35;
+  color: var(--ink);
+  margin: 0 0 4px;
+}
+
+.pub-page .pub-list .pub-venue {
+  display: block;
+  font-size: 0.93rem;
+  color: var(--ink-soft);
+}
+
+/* The year rail: the label on the left, that year's entries on the right. */
+.pub-year {
+  display: grid;
+  grid-template-columns: 104px minmax(0, 1fr);
+  gap: 2px 28px;
+  padding: 24px 0;
+}
+
+.pub-year + .pub-year {
+  border-top: 1px solid var(--rule);
+}
+
+.pub-year > h3 {
+  /* h3 carries the site's heading scale; in the rail it acts as a label. */
+  margin: 0;
+  font-size: 1.02rem;
+  color: var(--accent);
+}
+
+@media (max-width: 700px) {
+  .pub-year {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
 }
 
 /* --- PI page ------------------------------------------------------------ */
