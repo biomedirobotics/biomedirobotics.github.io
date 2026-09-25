@@ -2,792 +2,1232 @@
 <html lang="en">
 
 <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Publications | BMT Group at CUHK</title>
-        <meta name="description"
-                content="Publications from the BMT (Bioinspired Robotics and Medical Technology) Lab, MAE, CUHK.">
-        <link rel="stylesheet" href="styles.css">
-        <link rel="icon" href="assets/icon.png">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&family=Source+Sans+3:ital,wght@0,400..700;1,400..700&display=swap"
-                rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Publications | BMT Group at CUHK</title>
+    <meta name="description"
+        content="Publications from the BMT (Bioinspired Robotics and Medical Technology) Lab, MAE, CUHK.">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="assets/icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&family=Source+Sans+3:ital,wght@0,400..700;1,400..700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <style>
+        /* One flat, newest-first list mixing journal articles, conference papers and
+           patents, in the spirit of a Google Scholar profile. The type filter underneath
+           is pure CSS (`:has()`), driven by the three checkboxes above the list. */
+        .scholar-list {
+            list-style: none;
+            margin: 0 0 8px;
+            padding: 0;
+        }
+
+        .scholar-list>li {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 58px;
+            gap: 2px 20px;
+            padding: 15px 8px 16px;
+            border-bottom: 1px solid var(--rule);
+        }
+
+        .scholar-title {
+            font-family: var(--serif);
+            font-size: 1.04rem;
+            font-weight: 600;
+            line-height: 1.35;
+        }
+
+        .scholar-authors {
+            margin: 5px 0 0;
+            font-size: 0.92rem;
+            line-height: 1.5;
+            color: var(--muted);
+        }
+
+        .scholar-venue {
+            margin: 3px 0 0;
+            font-size: 0.92rem;
+            color: var(--ink-soft);
+        }
+
+        .scholar-year {
+            font-size: 0.95rem;
+            color: var(--muted);
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* Type filter: pure CSS, driven by the checkboxes above the list. */
+        .filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 0 0 20px;
+            font-size: 0.94rem;
+            color: var(--ink-soft);
+        }
+
+        .filter-bar label {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            cursor: pointer;
+        }
+
+        .filter-bar input {
+            width: 15px;
+            height: 15px;
+            accent-color: var(--accent);
+            cursor: pointer;
+        }
+
+        .filter-count {
+            margin-left: auto;
+            color: var(--muted);
+        }
+
+        .filter-count>span {
+            display: none;
+        }
+
+        body:has(#f-journal:checked):has(#f-conference:checked):has(#f-patents:checked) .c-jcp,
+        body:has(#f-journal:checked):has(#f-conference:checked):has(#f-patents:not(:checked)) .c-jc,
+        body:has(#f-journal:checked):has(#f-conference:not(:checked)):has(#f-patents:checked) .c-jp,
+        body:has(#f-journal:not(:checked)):has(#f-conference:checked):has(#f-patents:checked) .c-cp,
+        body:has(#f-journal:checked):has(#f-conference:not(:checked)):has(#f-patents:not(:checked)) .c-j,
+        body:has(#f-journal:not(:checked)):has(#f-conference:checked):has(#f-patents:not(:checked)) .c-c,
+        body:has(#f-journal:not(:checked)):has(#f-conference:not(:checked)):has(#f-patents:checked) .c-p,
+        body:has(#f-journal:not(:checked)):has(#f-conference:not(:checked)):has(#f-patents:not(:checked)) .c-none {
+            display: inline;
+        }
+
+        body:has(#f-journal:not(:checked)) .pub-journal,
+        body:has(#f-conference:not(:checked)) .pub-conference,
+        body:has(#f-patents:not(:checked)) .pub-patent {
+            display: none;
+        }
+
+        @media (max-width: 620px) {
+            .scholar-list>li {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .scholar-year {
+                text-align: left;
+            }
+        }
+    </style>
 </head>
 
 <body>
-        <header class="site-header">
-                <div class="container nav-row">
-                        <a class="brand" href="index.html"><img src="assets/logo.png"
-                                        alt="LeCAR Lab — Learning and Control for Agile Robotics Lab"></a>
-                        <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Toggle navigation">
-                        <label for="nav-toggle" class="nav-toggle-label" aria-hidden="true"><i
-                                        class="fas fa-bars"></i></label>
-                        <nav class="site-nav">
-                                <a href="samuel-au.html">PI</a>
-                                <a href="people.html">People</a>
-                                <a href="research.html">Research</a>
-                                <a href="publications.html" class="active">Publications</a>
-                                <a href="join.html">Join</a>
-                                <a href="events.html">Events</a>
-                        </nav>
+    <header class="site-header">
+        <div class="container nav-row">
+            <a class="brand" href="index.html"><img src="assets/logo.png"
+                    alt="LeCAR Lab — Learning and Control for Agile Robotics Lab"></a>
+            <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Toggle navigation">
+            <label for="nav-toggle" class="nav-toggle-label" aria-hidden="true"><i class="fas fa-bars"></i></label>
+            <nav class="site-nav">
+                <a href="samuel-au.html">PI</a>
+                <a href="people.html">People</a>
+                <a href="research.html">Research</a>
+                <a href="publications.html" class="active">Publications</a>
+                <a href="join.html">Join</a>
+                <a href="events.html">Events</a>
+            </nav>
+        </div>
+    </header>
+    <main class="container pub-page">
+        <h2>Publications</h2>
+
+        <div class="filter-bar" role="group" aria-label="Filter publications by type">
+            <label><input type="checkbox" id="f-journal" checked> Journals</label>
+            <label><input type="checkbox" id="f-conference" checked> Conferences</label>
+            <label><input type="checkbox" id="f-patents" checked> Patents</label>
+            <span class="filter-count">
+                <span class="c-jcp">94 publications</span>
+                <span class="c-jc">91 publications</span>
+                <span class="c-jp">51 publications</span>
+                <span class="c-cp">46 publications</span>
+                <span class="c-j">48 publications</span>
+                <span class="c-c">43 publications</span>
+                <span class="c-p">3 publications</span>
+                <span class="c-none">0 publications</span>
+            </span>
+        </div>
+        <ul class="scholar-list">
+
+
+
+
+
+
+
+
+            <li class="pub-conference">
+                <div>
+                    <span class="scholar-title">FingerViP: learning real-world dexterous manipulation with fingertip
+                        visual perception</span>
+                    <p class="scholar-authors">Zhen Zhang, Weinan Wang, Hejia Sun, Qingpeng Ding, Xiangyu Chu, Guoxin
+                        Fang, and Kowk Wai Samuel Au</p>
+                    <p class="scholar-venue">Conference on Robot Learning (CoRL)</p>
                 </div>
-        </header>
-        <main class="container pub-page">
-                <section>
-                        <h2>Journal Articles</h2>
-
-                        <div class="pub-year">
-                            <h3>2026</h3>
-
-                            <ul class="pub-list">
-
-                                    <li>
-                                        <em>Hierarchical deformation planning and neural tracking for DLOs in constrained environments</em>
-                                        <span class="pub-authors">Yunxi Tang, Tianqi Yang, Jing Huang, Xiangyu Chu, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">IEEE/ASME Transactions on Mechatronics, doi: <a href="https://doi.org/10.1109/tmech.2026.3688805" target="_blank" rel="noopener">10.1109/tmech.2026.3688805</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>Stiffness modeling and experiments on a low-tension, fully actuated, cable-driven manipulator with a stiffness regulator module</em>
-                                        <span class="pub-authors">Yanlin Chen, Yanjiang Huang, Qinlin Tan, Xiangyu Chu, Kwok Wai Samuel Au, and Xianmin Zhang</span>
-                                                                                <span class="pub-venue">IEEE/ASME Transactions on Mechatronics, doi: <a href="https://doi.org/10.1109/tmech.2026.3670275" target="_blank" rel="noopener">10.1109/tmech.2026.3670275</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>Error shifting-based fuzzy event-triggered control for switched interconnected nonlinear full-state constrained systems</em>
-                                        <span class="pub-authors">Jing Zhang, Choon Ki Ahn, Xiangyu Chu, and Kwok Wai Samuel Au</span>
-                                        <span class="pub-venue">IEEE Transactions on Automation Science and Engineering, doi: <a href="https://doi.org/10.1109/tase.2026.3733719" target="_blank" rel="noopener">10.1109/tase.2026.3733719</a></span>
-                                    </li>
-
-                            </ul>
-                        </div>
-
-                        <div class="pub-year">
-                            <h3>2025</h3>
-
-                            <ul class="pub-list">
-
-                                    <li>
-                                        <em>Generative 3D state estimation for DLOs from partial observations</em>
-                                        <span class="pub-authors">Yunxi Tang, Tianqi Yang, Jing Huang, Xiangyu Chu, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">IEEE Robotics and Automation Letters, doi: <a href="https://doi.org/10.1109/lra.2025.3632605" target="_blank" rel="noopener">10.1109/lra.2025.3632605</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>A bioinspired approach to bipedal running control: incorporating appendage inertia and lower leg stiffness</em>
-                                        <span class="pub-authors">Chun Ho David Lo and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">IEEE Robotics and Automation Letters, doi: <a href="https://doi.org/10.1109/lra.2025.3592076" target="_blank" rel="noopener">10.1109/lra.2025.3592076</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>Surgical embodied intelligence for generalized task autonomy in laparoscopic robot-assisted
-                                            surgery</em>
-                                        <span class="pub-authors">Yonghao Long, Anran Lin, Derek Hang Chun Kwok, Lin Zhang, Zhenya Yang, Kejian Shi, Lei Song, Jiawei Fu, Hongbin Lin, Wang Wei, Kai Chen, Xiangyu Chu, Yang Hu, Hon Chi Yip, Philip Wai Yan Chiu, Peter Kazanzides, Russell H. Taylor, Yun-Hui Liu, Zihan Chen, Zerui Wang, Kwok Wai Samuel Au, and Qi Dou</span>
-                                                                                <span class="pub-venue">Science Robotics, doi: <a href="https://doi.org/10.1126/scirobotics.adt3093" target="_blank" rel="noopener">10.1126/scirobotics.adt3093</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>Manipulating elasto-plastic objects with 3D occupancy and learning-based predictive control</em>
-                                        <span class="pub-authors">Zhen Zhang, Xiangyu Chu, Yunxi Tang, Lulu Zhao, Jing Huang, Zhongliang Jiang, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">IEEE Robotics and Automation Letters, doi: <a href="https://doi.org/10.1109/lra.2025.3575308" target="_blank" rel="noopener">10.1109/lra.2025.3575308</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>VibNet: vibration-boosted needle detection in ultrasound images</em>
-                                        <span class="pub-authors">Dianye Huang, Chenyang Li, Angelos Karlas, Xiangyu Chu, Kwok Wai Samuel Au, Nassir Navab, and Zhongliang Jiang</span>
-                                                                                <span class="pub-venue">IEEE Transactions on Medical Imaging, doi: <a href="https://doi.org/10.1109/tmi.2025.3545434" target="_blank" rel="noopener">10.1109/tmi.2025.3545434</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>OMEGA: open-source and multi-mode hopping platform for educational and groundwork aims</em>
-                                        <span class="pub-authors">Xiangyu Chu, Fei Yan Wong, Chun Yin Fan, Hongbo Zhang, Yanlin Chen, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">IEEE Robotics and Automation Letters, doi: <a href="https://doi.org/10.1109/lra.2025.3549661" target="_blank" rel="noopener">10.1109/lra.2025.3549661</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>Decentralized Type-2 fuzzy event-triggered control for nonlinear switched interconnected systems with actuator and sensor faults</em>
-                                        <span class="pub-authors">Jing Zhang, Zhengrong Xiang, Xiangyu Chu, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">IEEE Transactions on Fuzzy Systems, doi: <a href="https://doi.org/10.1109/tfuzz.2025.3527001" target="_blank" rel="noopener">10.1109/tfuzz.2025.3527001</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>Leader-following consensus of multiple rigid body systems by bounded attitude feedback</em>
-                                        <span class="pub-authors">Changran He and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">IEEE Transactions on Control of Network Systems, doi: <a href="https://doi.org/10.1109/tcns.2025.3549094" target="_blank" rel="noopener">10.1109/tcns.2025.3549094</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>A vibration-compensated continuum manipulator drill system for orthopaedic surgery</em>
-                                        <span class="pub-authors">Justin H. Ma, Hao Yang, Doru Petrisor, Dan Stoianovici, Alex Johnson, Amit Jain, Kwok Wai Samuel Au, Russell H. Taylor, and Mehran Armand</span>
-                                        <span class="pub-venue">IEEE/ASME Transactions on Mechatronics, doi: <a href="https://doi.org/10.1109/tmech.2025.3589968" target="_blank" rel="noopener">10.1109/tmech.2025.3589968</a></span>
-                                    </li>
-
-                            </ul>
-                        </div>
-
-                        <div class="pub-year">
-                            <h3>2024</h3>
-
-                            <ul class="pub-list">
-
-                                    <li>
-                                        <em>Needle segmentation using GAN: restoring thin instrument visibility in robotic ultrasound</em>
-                                        <span class="pub-authors">Zhongliang Jiang, Xuesong Li, Xiangyu Chu, Angelos Karlas, Yuan Bi, Yingsheng Cheng, Kwok Wai Samuel Au, and Nassir Navab</span>
-                                                                                <span class="pub-venue">IEEE Transactions on Instrumentation and Measurement, doi: <a href="https://doi.org/10.1109/tim.2024.3451569" target="_blank" rel="noopener">10.1109/tim.2024.3451569</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>Enhanced aerial reorientation performance using a 3-DoF morphable inertial tail inspired by kangaroo rats</em>
-                                        <span class="pub-authors">Jiajun An, Xiangyu Chu, Marie Janneke Schwaner, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">IEEE Robotics and Automation Letters, doi: <a href="https://doi.org/10.1109/lra.2024.3448134" target="_blank" rel="noopener">10.1109/lra.2024.3448134</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>Design, optimization, and experimental validation of a handheld nonconstant-curvature hybrid-structure robotic instrument for maxillary sinus surgery</em>
-                                        <span class="pub-authors">Xuchen Wang, Xin Ma, Puchen Zhu, Wee Shen Ng, Huayu Zhang, Xianfeng Xia, Russell H. Taylor, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">IEEE/ASME Transactions on Mechatronics, doi: <a href="https://doi.org/10.1109/tmech.2024.3402445" target="_blank" rel="noopener">10.1109/tmech.2024.3402445</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>From behavior to bio-inspiration: aerial reorientation and multi-plane stability in kangaroo rats, computational models, and robots</em>
-                                        <span class="pub-authors">Xiangyu Chu, Marie Janneke Schwaner, Jiajun An, Shengzhi Wang, Craig P. McGowan, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">Integrative and Comparative Biology, doi: <a href="https://doi.org/10.1093/icb/icae079" target="_blank" rel="noopener">10.1093/icb/icae079</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>A minimal set of parameters based depth-dependent distortion model and its calibration method for stereo vision systems</em>
-                                        <span class="pub-authors">Xin Ma, Puchen Zhu, Xiao Li, Xiaoyin Zheng, Jianshu Zhou, Xuchen Wang, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">IEEE Transactions on Instrumentation and Measurement, doi: <a href="https://doi.org/10.1109/tim.2024.3406802" target="_blank" rel="noopener">10.1109/tim.2024.3406802</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>Learning-based MPC with safety filter for constrained deformable linear object manipulation</em>
-                                        <span class="pub-authors">Yunxi Tang, Xiangyu Chu, Jing Huang, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">IEEE Robotics and Automation Letters, doi: <a href="https://doi.org/10.1109/lra.2024.3362643" target="_blank" rel="noopener">10.1109/lra.2024.3362643</a></span>
-                                    </li>
-
-                            </ul>
-                        </div>
-
-                        <div class="pub-year">
-                            <h3>2023</h3>
-
-                            <ul class="pub-list">
-
-                                    <li>
-                                        <em>Learning-based visual-strain fusion for eye-in-hand continuum robot pose estimation and control</em>
-                                        <span class="pub-authors">Xiaomei Wang, Jing Dai, Hon-Sing Tong, Kui Wang, Ge Fang, Xiaochen Xie, Yun-Hui Liu, Kwok Wai Samuel Au, and Ka-Wai Kwok</span>
-                                                                                <span class="pub-venue">IEEE Transactions on Robotics, doi: <a href="https://doi.org/10.1109/tro.2023.3240556" target="_blank" rel="noopener">10.1109/tro.2023.3240556</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>Design and experimental validation of a novel hybrid continuum robot with enhanced dexterity and manipulability in confined space</em>
-                                        <span class="pub-authors">Xin Ma, Xuchen Wang, Zihao Zhang, Puchen Zhu, Shing Shin Cheng, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">IEEE/ASME Transactions on Mechatronics, doi: <a href="https://doi.org/10.1109/tmech.2023.3276076" target="_blank" rel="noopener">10.1109/tmech.2023.3276076</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>Deformable object manipulation with constraints using path set planning and tracking</em>
-                                        <span class="pub-authors">Jing Huang, Xiangyu Chu, Xin Ma, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">IEEE Transactions on Robotics, doi: <a href="https://doi.org/10.1109/tro.2023.3306618" target="_blank" rel="noopener">10.1109/tro.2023.3306618</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>Combining tail and reaction wheel for underactuated spatial reorientation in robot falling with quadratic programming</em>
-                                        <span class="pub-authors">Xiangyu Chu, Shengzhi Wang, Raymond Ng, Chun Yin Fan, Jiajun An, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">IEEE Robotics and Automation Letters, doi: <a href="https://doi.org/10.1109/lra.2023.3322079" target="_blank" rel="noopener">10.1109/lra.2023.3322079</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>Task-oriented grasping position selection in deformable object manipulation</em>
-                                        <span class="pub-authors">Jing Huang and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">IEEE Robotics and Automation Letters, doi: <a href="https://doi.org/10.1109/lra.2022.3231495" target="_blank" rel="noopener">10.1109/lra.2022.3231495</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>A fast soft robotic laser sweeping system using data-driven modeling approach</em>
-                                        <span class="pub-authors">Kui Wang, Xiaomei Wang, Justin Di-Lang Ho, Ge Fang, Bohao Zhu, Rongying Xie, Yun-Hui Liu, Kwok Wai Samuel Au, Jason Ying-Kuen Chan, and Ka-Wai Kwok</span>
-                                        <span class="pub-venue">IEEE Transactions on Robotics, doi: <a href="https://doi.org/10.1109/tro.2023.3262118" target="_blank" rel="noopener">10.1109/tro.2023.3262118</a></span>
-                                    </li>
-
-                            </ul>
-                        </div>
-
-                        <div class="pub-year">
-                            <h3>2022</h3>
-
-                            <ul class="pub-list">
-
-                                    <li>
-                                        <em>A handheld steerable surgical drill with a novel articulated joint module for dexterous
-                                            confined-space bone work</em>
-                                        <span class="pub-authors">Yan Wang, Hao Zheng, Russell H. Taylor, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">IEEE Transactions on Biomedical Engineering, doi: <a href="https://doi.org/10.1109/tbme.2022.3157818" target="_blank" rel="noopener">10.1109/tbme.2022.3157818</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>Exponential attitude tracking and disturbance rejection of rigid body systems</em>
-                                        <span class="pub-authors">Changran He and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">International Journal of Robust and Nonlinear Control, doi: <a href="https://doi.org/10.1002/rnc.6149" target="_blank" rel="noopener">10.1002/rnc.6149</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>Design and experimental validation of a monopod robot with 3-DoF morphable inertial tail for somersault</em>
-                                        <span class="pub-authors">Jiajun An, Xin Ma, Chun Ho David Lo, Weeshen Ng, Xiangyu Chu, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">IEEE/ASME Transactions on Mechatronics, doi: <a href="https://doi.org/10.1109/tmech.2022.3167990" target="_blank" rel="noopener">10.1109/tmech.2022.3167990</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>Opposite treatment on null space: a unified control framework for a class of underactuated robotic systems with null space avoidance</em>
-                                        <span class="pub-authors">Xiangyu Chu, Chun Ho Lo, Tommaso Proietti, Conor J. Walsh, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">IEEE Transactions on Control Systems Technology, doi: <a href="https://doi.org/10.1109/tcst.2022.3171914" target="_blank" rel="noopener">10.1109/tcst.2022.3171914</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>Hybrid-structure hand-held robotic endoscope for sinus surgery with enhanced distal dexterity</em>
-                                        <span class="pub-authors">Xuchen Wang, Junyan Yan, Xin Ma, Jason Y. K. Chan, Russell H. Taylor, Shing Shin Cheng, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">IEEE/ASME Transactions on Mechatronics, doi: <a href="https://doi.org/10.1109/tmech.2022.3175807" target="_blank" rel="noopener">10.1109/tmech.2022.3175807</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>Feedback control for collision-free nonholonomic vehicle navigation on SE(2) with null space circumvention</em>
-                                        <span class="pub-authors">Xiangyu Chu, Raymond Ng, Hesheng Wang, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">IEEE/ASME Transactions on Mechatronics, doi: <a href="https://doi.org/10.1109/tmech.2022.3186174" target="_blank" rel="noopener">10.1109/tmech.2022.3186174</a></span>
-                                    </li>
-
-
-
-                            </ul>
-                        </div>
-
-                        <div class="pub-year">
-                            <h3>2021</h3>
-
-                            <ul class="pub-list">
-
-                                    <li>
-                                        <em>Design and experimental validation of a miniaturized robotic tendon-driven articulated surgical drill for enhancing distal dexterity in minimally invasive spine fusion</em>
-                                        <span class="pub-authors">Yan Wang, Hoi-Wut Yip, Hao Zheng, Hongbin Lin, Russell H. Taylor, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">IEEE/ASME Transactions on Mechatronics, doi: <a href="https://doi.org/10.1109/tmech.2021.3077706" target="_blank" rel="noopener">10.1109/tmech.2021.3077706</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>A task space virtual fixture architecture for tele-operated surgical system with slave joint limit constraints</em>
-                                        <span class="pub-authors">Yuanpei Cai, PangFai Choi, Chiu-Wai Vincent Hui, Russell H. Taylor, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">IEEE/ASME Transactions on Mechatronics, doi: <a href="https://doi.org/10.1109/tmech.2021.3058174" target="_blank" rel="noopener">10.1109/tmech.2021.3058174</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>Learning deep nets for gravitational dynamics with unknown disturbance through physical knowledge distillation: initial feasibility study</em>
-                                        <span class="pub-authors">Hongbin Lin, Qian Gao, Xiangyu Chu, Qi Dou, Anton Deguet, Peter Kazanzides, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">IEEE Robotics and Automation Letters, doi: <a href="https://doi.org/10.1109/lra.2021.3062351" target="_blank" rel="noopener">10.1109/lra.2021.3062351</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>Non-fixed contact manipulation control framework for deformable objects with active contact adjustment</em>
-                                        <span class="pub-authors">Jing Huang, Yuanpei Cai, Xiangyu Chu, Russell H. Taylor, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">IEEE Robotics and Automation Letters, doi: <a href="https://doi.org/10.1109/lra.2021.3062302" target="_blank" rel="noopener">10.1109/lra.2021.3062302</a></span>
-                                    </li>
-
-                            </ul>
-                        </div>
-
-                        <div class="pub-year">
-                            <h3>2019</h3>
-
-                            <ul class="pub-list">
-
-                                    <li>
-                                        <em>Null-space-avoidance-based orientation control framework for underactuated, tail-inspired
-                                            robotic systems in flight phase</em>
-                                        <span class="pub-authors">Xiangyu Chu, Chun Ho David Lo, Carlos Ma, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">IEEE Robotics and Automation Letters, doi: <a href="https://doi.org/10.1109/lra.2019.2928759" target="_blank" rel="noopener">10.1109/lra.2019.2928759</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>A reliable gravity compensation control strategy for dVRK robotic arms with nonlinear disturbance forces</em>
-                                        <span class="pub-authors">Hongbin Lin, Chiu-Wai Vincent Hui, Yan Wang, Anton Deguet, Peter Kazanzides, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">IEEE Robotics and Automation Letters, doi: <a href="https://doi.org/10.1109/lra.2019.2927953" target="_blank" rel="noopener">10.1109/lra.2019.2927953</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>Interfacing soft and hard: a spring reinforced actuator</em>
-                                        <span class="pub-authors">Hing-Choi Fu, Justin D. L. Ho, Kit-Hang Lee, Yu Cai Hu, Kwok Wai Samuel Au, Kyu-Jin Cho, Kam Yim Sze, and Ka-Wai Kwok</span>
-                                                                                <span class="pub-venue">Soft Robotics, doi: <a href="https://doi.org/10.1089/soro.2018.0118" target="_blank" rel="noopener">10.1089/soro.2018.0118</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>Underwater dynamic visual servoing for a soft robot arm with online distortion correction</em>
-                                        <span class="pub-authors">Fan Xu, Hesheng Wang, Jingchuan Wang, Kwok Wai Samuel Au, and Weidong Chen</span>
-                                                                                <span class="pub-venue">IEEE/ASME Transactions on Mechatronics, doi: <a href="https://doi.org/10.1109/tmech.2019.2908242" target="_blank" rel="noopener">10.1109/tmech.2019.2908242</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>Transcervical minimally invasive esophagectomy using da Vinci® SP™ surgical system: a feasibility study in cadaveric model</em>
-                                        <span class="pub-authors">Philip W. Y. Chiu, Simon S. M. Ng, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">Surgical Endoscopy, doi: <a href="https://doi.org/10.1007/s00464-018-06628-3" target="_blank" rel="noopener">10.1007/s00464-018-06628-3</a></span>
-                                    </li>
-
-                            </ul>
-                        </div>
-
-                        <div class="pub-year">
-                            <h3>2018</h3>
-
-                            <ul class="pub-list">
-
-                                    <li>
-                                        <em>Underwater dynamic modeling for a cable-driven soft robot arm</em>
-                                        <span class="pub-authors">Fan Xu, Hesheng Wang, Kwok Wai Samuel Au, Weidong Chen, and Yanzi Miao</span>
-                                                                                <span class="pub-venue">IEEE/ASME Transactions on Mechatronics, doi: <a href="https://doi.org/10.1109/tmech.2018.2872972" target="_blank" rel="noopener">10.1109/tmech.2018.2872972</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>A compliant robotic instrument with coupled tendon driven articulated wrist control for organ
-                                            retraction</em>
-                                        <span class="pub-authors">Xiangyu Chu, Hoi Wut Yip, Yuanpei Cai, Tsz Yin Chung, Stuart Moran, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">IEEE Robotics and Automation Letters, doi: <a href="https://doi.org/10.1109/lra.2018.2863373" target="_blank" rel="noopener">10.1109/lra.2018.2863373</a></span>
-                                    </li>
-
-                            </ul>
-                        </div>
-
-                        <div class="pub-year">
-                            <h3>Before 2009</h3>
-
-                            <ul class="pub-list">
-
-                                    <li>
-                                        <em>Powered ankle-foot prosthesis improves walking metabolic economy</em>
-                                        <span class="pub-authors">Kwok Wai Samuel Au, Jeff A. Weber, and Hugh Herr</span>
-                                                                                <span class="pub-venue">IEEE Transactions on Robotics, doi: <a href="https://doi.org/10.1109/tro.2008.2008747" target="_blank" rel="noopener">10.1109/tro.2008.2008747</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>Powered ankle-foot prosthesis</em>
-                                        <span class="pub-authors">Kwok Wai Samuel Au and Hugh Herr</span>
-                                                                                <span class="pub-venue">IEEE Robotics & Automation Magazine, doi: <a href="https://doi.org/10.1109/mra.2008.927697" target="_blank" rel="noopener">10.1109/mra.2008.927697</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>Powered ankle-foot prosthesis to assist level-ground and stair-descent gaits</em>
-                                        <span class="pub-authors">Kwok Wai Samuel Au, Max Berniker, and Hugh Herr</span>
-                                                                                <span class="pub-venue">Neural Networks, doi: <a href="https://doi.org/10.1016/j.neunet.2008.03.006" target="_blank" rel="noopener">10.1016/j.neunet.2008.03.006</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>Stabilization and path following of a single wheel robot</em>
-                                        <span class="pub-authors">Yangsheng Xu and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">IEEE/ASME Transactions on Mechatronics, doi: <a href="https://doi.org/10.1109/tmech.2004.828642" target="_blank" rel="noopener">10.1109/tmech.2004.828642</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>Control of tilt-up motion of a single wheel robot via model-based and human-based controllers</em>
-                                        <span class="pub-authors">Kwok Wai Samuel Au, Yangsheng Xu, and Wilson W.K. Yu</span>
-                                                                                <span class="pub-venue">Mechatronics, doi: <a href="https://doi.org/10.1016/s0957-4158(00)00028-3" target="_blank" rel="noopener">10.1016/s0957-4158(00)00028-3</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>Dynamic mobility with single-wheel configuration</em>
-                                        <span class="pub-authors">Yangsheng Xu, H. Ben Brown Jr, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">The International Journal of Robotics Research, doi: <a href="https://doi.org/10.1177/02783649922066538" target="_blank" rel="noopener">10.1177/02783649922066538</a></span>
-                                    </li>
-
-                            </ul>
-                        </div>
-
-                </section>
-
-                <section>
-                        <h2>Conference Proceedings and Abstracts</h2>
-
-                        <div class="pub-year">
-                            <h3>2026</h3>
-
-                            <ul class="pub-list">
-
-                                    <li>
-                                        <em>Towards autonomous mouth retraction with precise deformation regularization for oral and maxillofacial surgery</em>
-                                        <span class="pub-authors">Yunxi Tang, Tianqi Yang, Kwok Wai Samuel Au, and Xiangyu Chu</span>
-                                                                                <span class="pub-venue">Hamlyn Symposium, doi: <a href="https://doi.org/10.31256/hsmr26.66" target="_blank" rel="noopener">10.31256/hsmr26.66</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>Shared object manipulation with a team of collaborative quadrupeds</em>
-                                        <span class="pub-authors">Shengzhi Wang, Niels Dehio, Xuanqi Zeng, Xian Yang, Lingwei Zhang, Yun-Hui Liu, and Kwok Wai Samuel Au</span>
-                                        <span class="pub-venue">American Control Conference (ACC)</span>
-                                    </li>
-
-                                    <li>
-                                        <em>Intraoperative mandibular registration techniques - comparative case studies and clinical recommendations</em>
-                                        <span class="pub-authors">Lam Him Kwok, Jienan Ding, Jingya Pu, Yuxiong Su, Russell H. Taylor, and Kwok Wai Samuel Au</span>
-                                        <span class="pub-venue">International Conference for Biomedical Robotics and Biomechatronics (BioRob), doi: <a href="https://doi.org/10.1109/biorob66782.2026.11681818" target="_blank" rel="noopener">10.1109/biorob66782.2026.11681818</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>Enhanced freehand 3D ultrasound imaging with fusion of white-light and ultrasound imaging</em>
-                                        <span class="pub-authors">Yameng Zhang, Dianye Huang, Xiangyu Chu, Kwok Wai Samuel Au, and Zhongliang Jiang</span>
-                                        <span class="pub-venue">Hamlyn Symposium, doi: <a href="https://doi.org/10.31256/hsmr26.32" target="_blank" rel="noopener">10.31256/hsmr26.32</a></span>
-                                    </li>
-
-                            </ul>
-                        </div>
-
-                        <div class="pub-year">
-                            <h3>2025</h3>
-
-                            <ul class="pub-list">
-
-                                    <li>
-                                        <em>Vibration-based energy metric for restoring needle alignment in autonomous robotic ultrasound</em>
-                                        <span class="pub-authors">Zhongyu Chen, Chenyang Li, Xuesong Li, Dianye Huang, Zhongliang Jiang, Stefanie Speidel, Xiangyu Chu, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), doi: <a href="https://doi.org/10.1109/iros60139.2025.11245883" target="_blank" rel="noopener">10.1109/iros60139.2025.11245883</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>Appending propellers to leg for enhancing robustness of hopping locomotion</em>
-                                        <span class="pub-authors">Yanlin Chen, Ziyu Chen, Yunxi Tang, Kwok Wai Samuel Au, and Xiangyu Chu</span>
-                                                                                <span class="pub-venue">CLAWAR, doi: <a href="https://doi.org/10.1007/978-3-032-09051-5_15" target="_blank" rel="noopener">10.1007/978-3-032-09051-5_15</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>A spatial position-based visual servoing obstacle-avoidable shape control framework for an 11-DOF hybrid continuum robot</em>
-                                        <span class="pub-authors">Puchen Zhu, Wenkai Lai, Xin Ma, Xuchen Wang, Jianshu Zhou, Shing Shin Cheng, and Kwok Wai Samuel Au</span>
-                                        <span class="pub-venue">IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), doi: <a href="https://doi.org/10.1109/iros60139.2025.11246968" target="_blank" rel="noopener">10.1109/iros60139.2025.11246968</a></span>
-                                    </li>
-
-                            </ul>
-                        </div>
-
-                        <div class="pub-year">
-                            <h3>2024</h3>
-
-                            <ul class="pub-list">
-
-                                    <li>
-                                        <em>SIGMA: a minimalistic 3D hopping robot with parallel 3-RSR mechanism for safeguarding humanitarian demining</em>
-                                        <span class="pub-authors">Y. Ivan Fan, Xiangyu Chu, Fei Yan Wong, Fan Shi, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">IEEE International Symposium on Safety, Security, and Rescue Robotics (SSRR), doi: <a href="https://doi.org/10.1109/ssrr62954.2024.10770024" target="_blank" rel="noopener">10.1109/ssrr62954.2024.10770024</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>Homotopic path set planning for robot manipulation and navigation</em>
-                                        <span class="pub-authors">Jing Huang, Yunxi Tang, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">Robotics: Science and Systems (RSS), doi: <a href="https://doi.org/10.15607/rss.2024.xx.039" target="_blank" rel="noopener">10.15607/rss.2024.xx.039</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>World models for general surgical grasping</em>
-                                        <span class="pub-authors">Hongbin Lin, Bin Li, Chun Wai Wong, Juan Rojas, Xiangyu Chu, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">Robotics: Science and Systems (RSS), doi: <a href="https://doi.org/10.15607/rss.2024.xx.041" target="_blank" rel="noopener">10.15607/rss.2024.xx.041</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>A sliding cone control method for robust robot running</em>
-                                        <span class="pub-authors">Chun Ho David Lo, Wee Shen Ng, Xiangyu Chu, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">American Control Conference (ACC), doi: <a href="https://doi.org/10.23919/acc60939.2024.10644967" target="_blank" rel="noopener">10.23919/acc60939.2024.10644967</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>Interactive navigation in environments with traversable obstacles using large language and vision-language models</em>
-                                        <span class="pub-authors">Zhen Zhang, Anran Lin, Chun Wai Wong, Xiangyu Chu, Qi Dou, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">IEEE International Conference on Robotics and Automation (ICRA), doi: <a href="https://doi.org/10.1109/icra57147.2024.10610751" target="_blank" rel="noopener">10.1109/icra57147.2024.10610751</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>A CT-guided control framework of a robotic flexible endoscope for the diagnosis of the maxillary sinusitis</em>
-                                        <span class="pub-authors">Puchen Zhu, Huayu Zhang, Xin Ma, Xiaoyin Zheng, Xuchen Wang, and Kwok Wai Samuel Au</span>
-                                        <span class="pub-venue">IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), doi: <a href="https://doi.org/10.1109/iros58592.2024.10802259" target="_blank" rel="noopener">10.1109/iros58592.2024.10802259</a></span>
-                                    </li>
-
-                            </ul>
-                        </div>
-
-                        <div class="pub-year">
-                            <h3>2023</h3>
-
-                            <ul class="pub-list">
-
-                                    <li>
-                                        <em>Towards exact interaction force control for underactuated quadrupedal systems with orthogonal projection and quadratic programming</em>
-                                        <span class="pub-authors">Shengzhi Wang, Xiangyu Chu, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">IEEE International Conference on Robotics and Automation (ICRA), doi: <a href="https://doi.org/10.1109/icra48891.2023.10160835" target="_blank" rel="noopener">10.1109/icra48891.2023.10160835</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>Towards safe landing of falling quadruped robots using a 3-DoF morphable inertial tail</em>
-                                        <span class="pub-authors">Yunxi Tang, Jiajun An, Xiangyu Chu, Shengzhi Wang, Ching Yan Wong, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">IEEE International Conference on Robotics and Automation (ICRA), doi: <a href="https://doi.org/10.1109/icra48891.2023.10161422" target="_blank" rel="noopener">10.1109/icra48891.2023.10161422</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>A shared-control dexterous robotic system for assisting transoral mandibular fracture reduction: development and cadaver study</em>
-                                        <span class="pub-authors">Yan Wang, Hao Zheng, Yu-Chung Lee, Catherine P. L. Chan, Y.-K. Chan, Russell H. Taylor, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), doi: <a href="https://doi.org/10.1109/iros55552.2023.10342097" target="_blank" rel="noopener">10.1109/iros55552.2023.10342097</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>End-to-end learning of deep visuomotor policy for needle picking</em>
-                                        <span class="pub-authors">Hongbin Lin, Bin Li, Xiangyu Chu, Qi Dou, Yun-Hui Liu, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), doi: <a href="https://doi.org/10.1109/iros55552.2023.10342194" target="_blank" rel="noopener">10.1109/iros55552.2023.10342194</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>Model-free large-scale cloth spreading with mobile manipulation: initial feasibility study</em>
-                                        <span class="pub-authors">Xiangyu Chu, Shengzhi Wang, Minjian Feng, Jiaxi Zheng, Yuxuan Zhao, Jing Huang, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">IEEE International Conference on Automation Science and Engineering (CASE), doi: <a href="https://doi.org/10.1109/case56687.2023.10260538" target="_blank" rel="noopener">10.1109/case56687.2023.10260538</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>Legged robot running on rough terrains based on norm regulation of spring-loaded inverted pendulum model</em>
-                                        <span class="pub-authors">CH David Lo, CY Giselle Wong, Wee Shen Ng, Shengzhi Wang, Xiangyu Chu, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">IEEE-RAS 22nd International Conference on Humanoid Robots (Humanoids), doi: <a href="https://doi.org/10.1109/humanoids57100.2023.10375173" target="_blank" rel="noopener">10.1109/humanoids57100.2023.10375173</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>Bootstrapping robotic skill learning with intuitive teleoperation: initial feasibility study</em>
-                                        <span class="pub-authors">Xiangyu Chu, Yunxi Tang, Lam Him Kwok, Yuanpei Cai, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">18th International Symposium on Experimental Robotics (ISER), doi: <a href="https://doi.org/10.1007/978-3-031-63596-0_5" target="_blank" rel="noopener">10.1007/978-3-031-63596-0_5</a></span>
-                                    </li>
-
-                            </ul>
-                        </div>
-
-                        <div class="pub-year">
-                            <h3>2022</h3>
-
-                            <ul class="pub-list">
-
-                                    <li>
-                                        <em>Adaptive flight stabilization framework for a planar 4R-Foldable quadrotor: utilizing morphing to navigate in confined environments</em>
-                                        <span class="pub-authors">Jawad Mehmood Butt, Xin Ma, Xiangyu Chu, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">American Control Conference (ACC), doi: <a href="https://doi.org/10.23919/acc53348.2022.9867402" target="_blank" rel="noopener">10.23919/acc53348.2022.9867402</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>Design, teleoperation control and experimental validation of a dexterous robotic flexible endoscope for laparoscopic surgery</em>
-                                        <span class="pub-authors">Xin Ma, Xuchen Wang, Rui Cao, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), doi: <a href="https://doi.org/10.1109/iros47612.2022.9981536" target="_blank" rel="noopener">10.1109/iros47612.2022.9981536</a></span>
-                                    </li>
-
-                            </ul>
-                        </div>
-
-                        <div class="pub-year">
-                            <h3>2021</h3>
-
-                            <ul class="pub-list">
-
-                                    <li>
-                                        <em>Modeling and control of soft robotic tail based aerial maneuvering(STAM) system: towards agile self-righting with a soft tail</em>
-                                        <span class="pub-authors">Jawad Mehmood Butt, Xiangyu Chu, Hao Zheng, Xiaomei Wang, Ka-Wai Kwok, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">IEEE International Conference on Advanced Robotics (ICAR), doi: <a href="https://doi.org/10.1109/icar53236.2021.9659375" target="_blank" rel="noopener">10.1109/icar53236.2021.9659375</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>Development of a portable hybrid pendubot-acrobot robotic platform for on and off campus teaching and learning</em>
-                                        <span class="pub-authors">Raymond Ng, Yunxi Tang, Hongbin Lin, Xiangyu Chu, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">American Control Conference (ACC), doi: <a href="https://doi.org/10.23919/acc50511.2021.9482939" target="_blank" rel="noopener">10.23919/acc50511.2021.9482939</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>Operational space control for planar PAN-1 underactuated manipulators using orthogonal projection and quadratic programming</em>
-                                        <span class="pub-authors">Xiangyu Chu, Yunxi Tang, Alessandro M. Giordano, Tan Chen, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">IEEE International Conference on Robotics and Automation (ICRA), doi: <a href="https://doi.org/10.1109/icra48506.2021.9561278" target="_blank" rel="noopener">10.1109/icra48506.2021.9561278</a></span>
-                                    </li>
-
-
-
-
-                                    <li>
-                                        <em>A geometry metric for nonholonomically constrained three degree of freedom kinematic systems:
-                                            enabling real-time control and online optimization</em>
-                                        <span class="pub-authors">Xiangyu Chu and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">RSS Workshop on Geometry and Topology in Robotics: Learning, Optimization, Planning, and Control</span>
-                                    </li>
-
-                            </ul>
-                        </div>
-
-                        <div class="pub-year">
-                            <h3>2020</h3>
-
-                            <ul class="pub-list">
-
-                                    <li>
-                                        <em>Development of a bipedal hopping robot with morphable inertial tail for agile locomotion</em>
-                                        <span class="pub-authors">Jiajun An, Tsz Yin Chung, Chun Ho David Lo, Carlos Ma, Xiangyu Chu, and Kwok Wai Samuel Au</span>
-                                        <span class="pub-venue">International Conference for Biomedical Robotics and Biomechatronics (BioRob), doi: <a href="https://doi.org/10.1109/biorob49111.2020.9224428" target="_blank" rel="noopener">10.1109/biorob49111.2020.9224428</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>A novel strategy for stabilization control of a planar three-link underactuated manipulator with a passive first joint</em>
-                                        <span class="pub-authors">Xiangyu Chu and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">American Control Conference (ACC), doi: <a href="https://doi.org/10.23919/acc45564.2020.9147798" target="_blank" rel="noopener">10.23919/acc45564.2020.9147798</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>A norm-regulation-based limit cycle control of vertical hoppers</em>
-                                        <span class="pub-authors">Chun Ho David Lo, Xiangyu Chu, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">American Control Conference (ACC), doi: <a href="https://doi.org/10.23919/acc45564.2020.9147375" target="_blank" rel="noopener">10.23919/acc45564.2020.9147375</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>Towards agile maneuver generation for terrestrial robots in flight phase</em>
-                                        <span class="pub-authors">Xiangyu Chu, Chun Ho David Lo, Carlos Ma, Jiajun An, Tsz Yin Chung, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">Dynamic Walking</span>
-                                    </li>
-
-
-                                    <li>
-                                        <em>Task-oriented contact adjustment in deformable objects manipulation with non-fixed contact</em>
-                                        <span class="pub-authors">Jing Huang, Yuanpei Cai, Xiangyu Chu, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">IROS Workshop on Managing Deformation: A Step Towards Higher Robot Autonomy</span>
-                                    </li>
-
-                                    <li>
-                                        <em>Utilizing null space in overactuated systems vs avoiding null space in underactuated systems</em>
-                                        <span class="pub-authors">Xiangyu Chu</span>
-                                                                                <span class="pub-venue">RSS Workshop on Robotics Retrospectives</span>
-                                    </li>
-
-                            </ul>
-                        </div>
-
-                        <div class="pub-year">
-                            <h3>2019</h3>
-
-                            <ul class="pub-list">
-
-                                    <li>
-                                        <em>Semi-analytical orientation alignment with joint limit constraints for tele-operated surgical system</em>
-                                        <span class="pub-authors">Yuanpei Cai, Chiu-Wai Vincent Hui, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">Hamlyn Symposium, doi: <a href="https://doi.org/10.31256/hsmr2019.25" target="_blank" rel="noopener">10.31256/hsmr2019.25</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>A reliable gravity compensation software package for the da Vinci Research Kit</em>
-                                        <span class="pub-authors">Hongbin Lin, Chiu-Wai Vincent Hui, Yan Wang, Anton Deguet, Peter Kazanzides, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">ICRA Workshop on Open Challenges and State-of-the-Art in Control System Design and Technology Development for Surgical Robotic Systems</span>
-                                    </li>
-
-                                    <li>
-                                        <em>Null-space-avoidance-based attitude stabilization control for coupled space robot systems</em>
-                                        <span class="pub-authors">Xiangyu Chu, Chun Ho David Lo, Carlos Ma, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">ICRA Workshop on Robotic Technology for In-Space Assembly</span>
-                                    </li>
-
-                                    <li>
-                                        <em>Opposite treatments on null space: null space projection vs null space avoidance</em>
-                                        <span class="pub-authors">Xiangyu Chu, Chun Ho David Lo, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">IROS Late Breaking Results Poster</span>
-                                    </li>
-
-                                    <li>
-                                        <em>A reliable gravity compensation software package for da Vinci Research Kit</em>
-                                        <span class="pub-authors">Hongbin Lin, Chiu-Wai Vincent Hui, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">IEEE International Conference on Robotics and Automation (ICRA)</span>
-                                    </li>
-
-                            </ul>
-                        </div>
-
-                        <div class="pub-year">
-                            <h3>2018</h3>
-
-                            <ul class="pub-list">
-
-
-                                    <li>
-                                        <em>A systematic modelling approach for motor-cable-joint kinematics of coupled tendon-driven surgical instrument</em>
-                                        <span class="pub-authors">Xiangyu Chu, Tsz Yin Chung, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">Hamlyn Symposium, doi: <a href="https://doi.org/10.31256/hsmr2018.9" target="_blank" rel="noopener">10.31256/hsmr2018.9</a></span>
-                                    </li>
-
-                                    <li>
-                                        <em>Design of an inherently safe robotic instrument for organ retraction by exploiting the buckling principle of a continuum bending beam</em>
-                                        <span class="pub-authors">Hoi Wut Yip, Yuanpei Cai, Tsz Yin Chung, Stuart Moran, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">Hamlyn Symposium</span>
-                                    </li>
-
-                                    <li>
-                                        <em>A case study of gravity compensation for da Vinci robotic manipulator: a practical perspective</em>
-                                        <span class="pub-authors">K. Lu, Hongbin Lin, Chiu-Wai Vincent Hui, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">ICRA Workshop on Supervised Autonomy in Surgical Robotics</span>
-                                    </li>
-
-                                    <li>
-                                        <em>Comparison study of geometric representation for continuum manipulator</em>
-                                        <span class="pub-authors">Ka Chun Lau, Yuanpei Cai, Yeung Yam, and Kwok Wai Samuel Au</span>
-                                                                                <span class="pub-venue">ICRA Workshop on Supervised Autonomy in Surgical Robotics</span>
-                                    </li>
-
-                            </ul>
-                        </div>
-
-                </section>
-
-                <section>
-                        <h2>Patents</h2>
-
-                        <div class="pub-year">
-                            <h3>2025</h3>
-
-                            <ul class="pub-list">
-
-                                    <li>
-                                        <em>Systems and methods for organ retraction and space opening</em>
-                                        <span class="pub-authors">Kwok Wai Samuel Au, Hoi Wut Yip, Tsz Yin Chung, and Stuart Moran</span>
-                                        <span class="pub-venue">US Patent, <a href="https://patents.google.com/patent/US12426867B2/en" target="_blank" rel="noopener">US 12,426,867 B2</a></span>
-                                    </li>
-
-                            </ul>
-                        </div>
-                        <div class="pub-year">
-                            <h3>2024</h3>
-
-                            <ul class="pub-list">
-
-                                    <li>
-                                        <em>Morphable inertial appendage, systems and associated methods</em>
-                                        <span class="pub-authors">Kwok Wai Samuel Au, Jiajun An, Xiangyu Chu, Tsz Yin Chung, Chun Ho Lo, Hoi Wut Yip, and Carlos Ma</span>
-                                        <span class="pub-venue">US Patent, <a href="https://patents.google.com/patent/US12064869B2/en" target="_blank" rel="noopener">US 12,064,869 B2</a></span>
-                                    </li>
-
-                            </ul>
-                        </div>
-                        <div class="pub-year">
-                            <h3>2023</h3>
-
-                            <ul class="pub-list">
-
-                                    <li>
-                                        <em>Articulating surgical device</em>
-                                        <span class="pub-authors">Kwok Wai Samuel Au, Yan Wang, and Hoi Wut Yip</span>
-                                        <span class="pub-venue">US Patent Application, <a href="https://patents.google.com/patent/US20230248417A1/en" target="_blank" rel="noopener">US 2023/0248417 A1</a>, pending</span>
-                                    </li>
-
-                            </ul>
-                        </div>
-
-                </section>
-        </main>
-
-        <footer class="site-footer">
-                <div class="container footer-row">
-                        <p class="footer-note">Thanks for the <a href="https://github.com/LeCAR-Lab/LeCAR-Lab.github.io"
-                                        target="_blank" rel="noopener">source code</a> from <a
-                                        href="https://lecar-lab.github.io/" target="_blank" rel="noopener">LeCAR
-                                        Lab</a>. Last updated: 2026-09-25.</p>
-                        <div class="social-icons">
-                                <a href="https://youtube.com/@bioroboticsmedicaltechnolo8845" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-                                <a href="https://github.com/biomedirobotics" target="_blank" aria-label="GitHub"><i
-                                                class="fab fa-github"></i></a>
-                        </div>
+                <div class="scholar-year"><time datetime="2026-11-09">2026</time></div>
+            </li>
+            <li class="pub-journal">
+                <div>
+                    <span class="scholar-title">Error shifting-based fuzzy event-triggered control for switched
+                        interconnected nonlinear full-state constrained systems</span>
+                    <p class="scholar-authors">Jing Zhang, Choon Ki Ahn, Xiangyu Chu, and Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">IEEE Transactions on Automation Science and Engineering, doi: <a
+                            href="https://doi.org/10.1109/tase.2026.3733719" target="_blank"
+                            rel="noopener">10.1109/tase.2026.3733719</a></p>
                 </div>
-        </footer>
+                <div class="scholar-year"><time datetime="2026-09-23">2026</time></div>
+            </li>
+            <li class="pub-conference">
+                <div>
+                    <span class="scholar-title">Intraoperative mandibular registration techniques - comparative case
+                        studies and clinical recommendations</span>
+                    <p class="scholar-authors">Lam Him Kwok, Jienan Ding, Jingya Pu, Yuxiong Su, Russell H. Taylor, and
+                        Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">International Conference for Biomedical Robotics and Biomechatronics
+                        (BioRob), doi: <a href="https://doi.org/10.1109/biorob66782.2026.11681818" target="_blank"
+                            rel="noopener">10.1109/biorob66782.2026.11681818</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2026-09-16">2026</time></div>
+            </li>
+            <li class="pub-conference">
+                <div>
+                    <span class="scholar-title">Propeller-assisted robust 3D hopping robot with hierarchical force
+                        allocation</span>
+                    <p class="scholar-authors">Chuhan Zhang, Hongbo Zhang, Yanlin Chen, Yunxi Tang, Yun-Hui Liu, Mingyi
+                        Liu, and Xiangyu Chu</p>
+                    <p class="scholar-venue">IEEE International Conference on Automation Science and Engineering (CASE)
+                    </p>
+                </div>
+                <div class="scholar-year"><time datetime="2026-08-17">2026</time></div>
+            </li>
+            <li class="pub-journal">
+                <div>
+                    <span class="scholar-title">Actuation-constrained control framework for optimal microswarm
+                        navigation with swarm stability guarantee</span>
+                    <p class="scholar-authors">Xiangyu Chu, Yamei Li, Yunxi Tang, Yangmin Li, and Lidong Yang</p>
+                    <p class="scholar-venue">The International Journal of Robotics Research, doi: <a
+                            href="https://doi.org/10.1177/02783649261462583" target="_blank"
+                            rel="noopener">10.1177/02783649261462583</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2026-07-31">2026</time></div>
+            </li>
+            <li class="pub-conference">
+                <div>
+                    <span class="scholar-title">Shared object manipulation with a team of collaborative
+                        quadrupeds</span>
+                    <p class="scholar-authors">Shengzhi Wang, Niels Dehio, Xuanqi Zeng, Xian Yang, Lingwei Zhang,
+                        Yun-Hui Liu, and Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">American Control Conference (ACC)</p>
+                </div>
+                <div class="scholar-year"><time datetime="2026-05-26">2026</time></div>
+            </li>
+            <li class="pub-journal">
+                <div>
+                    <span class="scholar-title">Hierarchical deformation planning and neural tracking for DLOs in
+                        constrained environments</span>
+                    <p class="scholar-authors">Yunxi Tang, Tianqi Yang, Jing Huang, Xiangyu Chu, and Kwok Wai Samuel Au
+                    </p>
+                    <p class="scholar-venue">IEEE/ASME Transactions on Mechatronics, doi: <a
+                            href="https://doi.org/10.1109/tmech.2026.3688805" target="_blank"
+                            rel="noopener">10.1109/tmech.2026.3688805</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2026-05-15">2026</time></div>
+            </li>
+            <li class="pub-conference">
+                <div>
+                    <span class="scholar-title">Enhanced freehand 3D ultrasound imaging with fusion of white-light and
+                        ultrasound imaging</span>
+                    <p class="scholar-authors">Yameng Zhang, Dianye Huang, Xiangyu Chu, Kwok Wai Samuel Au, and
+                        Zhongliang Jiang</p>
+                    <p class="scholar-venue">Hamlyn Symposium, doi: <a href="https://doi.org/10.31256/hsmr26.32"
+                            target="_blank" rel="noopener">10.31256/hsmr26.32</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2026-05-04">2026</time></div>
+            </li>
+            <li class="pub-conference">
+                <div>
+                    <span class="scholar-title">Towards autonomous mouth retraction with precise deformation
+                        regularization for oral and maxillofacial surgery</span>
+                    <p class="scholar-authors">Yunxi Tang, Tianqi Yang, Kwok Wai Samuel Au, and Xiangyu Chu</p>
+                    <p class="scholar-venue">Hamlyn Symposium, doi: <a href="https://doi.org/10.31256/hsmr26.66"
+                            target="_blank" rel="noopener">10.31256/hsmr26.66</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2026-05-04">2026</time></div>
+            </li>
+            <li class="pub-journal">
+                <div>
+                    <span class="scholar-title">Stiffness modeling and experiments on a low-tension, fully actuated,
+                        cable-driven manipulator with a stiffness regulator module</span>
+                    <p class="scholar-authors">Yanlin Chen, Yanjiang Huang, Qinlin Tan, Xiangyu Chu, Kwok Wai Samuel Au,
+                        and Xianmin Zhang</p>
+                    <p class="scholar-venue">IEEE/ASME Transactions on Mechatronics, doi: <a
+                            href="https://doi.org/10.1109/tmech.2026.3670275" target="_blank"
+                            rel="noopener">10.1109/tmech.2026.3670275</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2026-03-18">2026</time></div>
+            </li>
+            <li class="pub-journal">
+                <div>
+                    <span class="scholar-title">Generative 3D state estimation for DLOs from partial observations</span>
+                    <p class="scholar-authors">Yunxi Tang, Tianqi Yang, Jing Huang, Xiangyu Chu, and Kwok Wai Samuel Au
+                    </p>
+                    <p class="scholar-venue">IEEE Robotics and Automation Letters, doi: <a
+                            href="https://doi.org/10.1109/lra.2025.3632605" target="_blank"
+                            rel="noopener">10.1109/lra.2025.3632605</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2025-11-14">2025</time></div>
+            </li>
+            <li class="pub-conference">
+                <div>
+                    <span class="scholar-title">Appending propellers to leg for enhancing robustness of hopping
+                        locomotion</span>
+                    <p class="scholar-authors">Yanlin Chen, Ziyu Chen, Yunxi Tang, Kwok Wai Samuel Au, and Xiangyu Chu
+                    </p>
+                    <p class="scholar-venue">CLAWAR, doi: <a href="https://doi.org/10.1007/978-3-032-09051-5_15"
+                            target="_blank" rel="noopener">10.1007/978-3-032-09051-5_15</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2025-10-29">2025</time></div>
+            </li>
+            <li class="pub-conference">
+                <div>
+                    <span class="scholar-title">Vibration-based energy metric for restoring needle alignment in
+                        autonomous robotic ultrasound</span>
+                    <p class="scholar-authors">Zhongyu Chen, Chenyang Li, Xuesong Li, Dianye Huang, Zhongliang Jiang,
+                        Stefanie Speidel, Xiangyu Chu, and Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS),
+                        doi: <a href="https://doi.org/10.1109/iros60139.2025.11245883" target="_blank"
+                            rel="noopener">10.1109/iros60139.2025.11245883</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2025-10-19">2025</time></div>
+            </li>
+            <li class="pub-conference">
+                <div>
+                    <span class="scholar-title">A spatial position-based visual servoing obstacle-avoidable shape
+                        control framework for an 11-DOF hybrid continuum robot</span>
+                    <p class="scholar-authors">Puchen Zhu, Wenkai Lai, Xin Ma, Xuchen Wang, Jianshu Zhou, Shing Shin
+                        Cheng, and Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS),
+                        doi: <a href="https://doi.org/10.1109/iros60139.2025.11246968" target="_blank"
+                            rel="noopener">10.1109/iros60139.2025.11246968</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2025-10-19">2025</time></div>
+            </li>
+            <li class="pub-patent">
+                <div>
+                    <span class="scholar-title">Systems and methods for organ retraction and space opening</span>
+                    <p class="scholar-authors">Kwok Wai Samuel Au, Hoi Wut Yip, Tsz Yin Chung, and Stuart Moran</p>
+                    <p class="scholar-venue">US Patent, <a href="https://patents.google.com/patent/US12426867B2/en"
+                            target="_blank" rel="noopener">US 12,426,867 B2</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2025-09-30">2025</time></div>
+            </li>
+            <li class="pub-journal">
+                <div>
+                    <span class="scholar-title">A vibration-compensated continuum manipulator drill system for
+                        orthopaedic surgery</span>
+                    <p class="scholar-authors">Justin H. Ma, Hao Yang, Doru Petrisor, Dan Stoianovici, Alex Johnson,
+                        Amit Jain, Kwok Wai Samuel Au, Russell H. Taylor, and Mehran Armand</p>
+                    <p class="scholar-venue">IEEE/ASME Transactions on Mechatronics, doi: <a
+                            href="https://doi.org/10.1109/tmech.2025.3589968" target="_blank"
+                            rel="noopener">10.1109/tmech.2025.3589968</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2025-08-01">2025</time></div>
+            </li>
+            <li class="pub-journal">
+                <div>
+                    <span class="scholar-title">A bioinspired approach to bipedal running control: incorporating
+                        appendage inertia and lower leg stiffness</span>
+                    <p class="scholar-authors">Chun Ho David Lo and Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">IEEE Robotics and Automation Letters, doi: <a
+                            href="https://doi.org/10.1109/lra.2025.3592076" target="_blank"
+                            rel="noopener">10.1109/lra.2025.3592076</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2025-07-23">2025</time></div>
+            </li>
+            <li class="pub-journal">
+                <div>
+                    <span class="scholar-title">Surgical embodied intelligence for generalized task autonomy in
+                        laparoscopic robot-assisted surgery</span>
+                    <p class="scholar-authors">Yonghao Long, Anran Lin, Derek Hang Chun Kwok, Lin Zhang, Zhenya Yang,
+                        Kejian Shi, Lei Song, Jiawei Fu, Hongbin Lin, Wang Wei, Kai Chen, Xiangyu Chu, Yang Hu, Hon Chi
+                        Yip, Philip Wai Yan Chiu, Peter Kazanzides, Russell H. Taylor, Yun-Hui Liu, Zihan Chen, Zerui
+                        Wang, Kwok Wai Samuel Au, and Qi Dou</p>
+                    <p class="scholar-venue">Science Robotics, doi: <a
+                            href="https://doi.org/10.1126/scirobotics.adt3093" target="_blank"
+                            rel="noopener">10.1126/scirobotics.adt3093</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2025-07-16">2025</time></div>
+            </li>
+            <li class="pub-journal">
+                <div>
+                    <span class="scholar-title">Manipulating elasto-plastic objects with 3D occupancy and learning-based
+                        predictive control</span>
+                    <p class="scholar-authors">Zhen Zhang, Xiangyu Chu, Yunxi Tang, Lulu Zhao, Jing Huang, Zhongliang
+                        Jiang, and Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">IEEE Robotics and Automation Letters, doi: <a
+                            href="https://doi.org/10.1109/lra.2025.3575308" target="_blank"
+                            rel="noopener">10.1109/lra.2025.3575308</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2025-05-30">2025</time></div>
+            </li>
+            <li class="pub-journal">
+                <div>
+                    <span class="scholar-title">OMEGA: open-source and multi-mode hopping platform for educational and
+                        groundwork aims</span>
+                    <p class="scholar-authors">Xiangyu Chu, Fei Yan Wong, Chun Yin Fan, Hongbo Zhang, Yanlin Chen, and
+                        Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">IEEE Robotics and Automation Letters, doi: <a
+                            href="https://doi.org/10.1109/lra.2025.3549661" target="_blank"
+                            rel="noopener">10.1109/lra.2025.3549661</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2025-03-11">2025</time></div>
+            </li>
+            <li class="pub-journal">
+                <div>
+                    <span class="scholar-title">Leader-following consensus of multiple rigid body systems by bounded
+                        attitude feedback</span>
+                    <p class="scholar-authors">Changran He and Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">IEEE Transactions on Control of Network Systems, doi: <a
+                            href="https://doi.org/10.1109/tcns.2025.3549094" target="_blank"
+                            rel="noopener">10.1109/tcns.2025.3549094</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2025-03-07">2025</time></div>
+            </li>
+            <li class="pub-journal">
+                <div>
+                    <span class="scholar-title">VibNet: vibration-boosted needle detection in ultrasound images</span>
+                    <p class="scholar-authors">Dianye Huang, Chenyang Li, Angelos Karlas, Xiangyu Chu, Kwok Wai Samuel
+                        Au, Nassir Navab, and Zhongliang Jiang</p>
+                    <p class="scholar-venue">IEEE Transactions on Medical Imaging, doi: <a
+                            href="https://doi.org/10.1109/tmi.2025.3545434" target="_blank"
+                            rel="noopener">10.1109/tmi.2025.3545434</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2025-02-25">2025</time></div>
+            </li>
+            <li class="pub-journal">
+                <div>
+                    <span class="scholar-title">Decentralized Type-2 fuzzy event-triggered control for nonlinear
+                        switched interconnected systems with actuator and sensor faults</span>
+                    <p class="scholar-authors">Jing Zhang, Zhengrong Xiang, Xiangyu Chu, and Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">IEEE Transactions on Fuzzy Systems, doi: <a
+                            href="https://doi.org/10.1109/tfuzz.2025.3527001" target="_blank"
+                            rel="noopener">10.1109/tfuzz.2025.3527001</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2025-01-08">2025</time></div>
+            </li>
+            <li class="pub-conference">
+                <div>
+                    <span class="scholar-title">SIGMA: a minimalistic 3D hopping robot with parallel 3-RSR mechanism for
+                        safeguarding humanitarian demining</span>
+                    <p class="scholar-authors">Y. Ivan Fan, Xiangyu Chu, Fei Yan Wong, Fan Shi, and Kwok Wai Samuel Au
+                    </p>
+                    <p class="scholar-venue">IEEE International Symposium on Safety, Security, and Rescue Robotics
+                        (SSRR), doi: <a href="https://doi.org/10.1109/ssrr62954.2024.10770024" target="_blank"
+                            rel="noopener">10.1109/ssrr62954.2024.10770024</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2024-11-12">2024</time></div>
+            </li>
+            <li class="pub-journal">
+                <div>
+                    <span class="scholar-title">Needle segmentation using GAN: restoring thin instrument visibility in
+                        robotic ultrasound</span>
+                    <p class="scholar-authors">Zhongliang Jiang, Xuesong Li, Xiangyu Chu, Angelos Karlas, Yuan Bi,
+                        Yingsheng Cheng, Kwok Wai Samuel Au, and Nassir Navab</p>
+                    <p class="scholar-venue">IEEE Transactions on Instrumentation and Measurement, doi: <a
+                            href="https://doi.org/10.1109/tim.2024.3451569" target="_blank"
+                            rel="noopener">10.1109/tim.2024.3451569</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2024-10-31">2024</time></div>
+            </li>
+            <li class="pub-conference">
+                <div>
+                    <span class="scholar-title">A CT-guided control framework of a robotic flexible endoscope for the
+                        diagnosis of the maxillary sinusitis</span>
+                    <p class="scholar-authors">Puchen Zhu, Huayu Zhang, Xin Ma, Xiaoyin Zheng, Xuchen Wang, and Kwok Wai
+                        Samuel Au</p>
+                    <p class="scholar-venue">IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS),
+                        doi: <a href="https://doi.org/10.1109/iros58592.2024.10802259" target="_blank"
+                            rel="noopener">10.1109/iros58592.2024.10802259</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2024-10-14">2024</time></div>
+            </li>
+            <li class="pub-journal">
+                <div>
+                    <span class="scholar-title">Enhanced aerial reorientation performance using a 3-DoF morphable
+                        inertial tail inspired by kangaroo rats</span>
+                    <p class="scholar-authors">Jiajun An, Xiangyu Chu, Marie Janneke Schwaner, and Kwok Wai Samuel Au
+                    </p>
+                    <p class="scholar-venue">IEEE Robotics and Automation Letters, doi: <a
+                            href="https://doi.org/10.1109/lra.2024.3448134" target="_blank"
+                            rel="noopener">10.1109/lra.2024.3448134</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2024-08-22">2024</time></div>
+            </li>
+            <li class="pub-patent">
+                <div>
+                    <span class="scholar-title">Morphable inertial appendage, systems and associated methods</span>
+                    <p class="scholar-authors">Kwok Wai Samuel Au, Jiajun An, Xiangyu Chu, Tsz Yin Chung, Chun Ho Lo,
+                        Hoi Wut Yip, and Carlos Ma</p>
+                    <p class="scholar-venue">US Patent, <a href="https://patents.google.com/patent/US12064869B2/en"
+                            target="_blank" rel="noopener">US 12,064,869 B2</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2024-08-20">2024</time></div>
+            </li>
+            <li class="pub-conference">
+                <div>
+                    <span class="scholar-title">Bootstrapping robotic skill learning with intuitive teleoperation:
+                        initial feasibility study</span>
+                    <p class="scholar-authors">Xiangyu Chu, Yunxi Tang, Lam Him Kwok, Yuanpei Cai, and Kwok Wai Samuel
+                        Au</p>
+                    <p class="scholar-venue">18th International Symposium on Experimental Robotics (ISER), doi: <a
+                            href="https://doi.org/10.1007/978-3-031-63596-0_5" target="_blank"
+                            rel="noopener">10.1007/978-3-031-63596-0_5</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2024-08-05">2024</time></div>
+            </li>
+            <li class="pub-conference">
+                <div>
+                    <span class="scholar-title">Homotopic path set planning for robot manipulation and navigation</span>
+                    <p class="scholar-authors">Jing Huang, Yunxi Tang, and Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">Robotics: Science and Systems (RSS), doi: <a
+                            href="https://doi.org/10.15607/rss.2024.xx.039" target="_blank"
+                            rel="noopener">10.15607/rss.2024.xx.039</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2024-07-15">2024</time></div>
+            </li>
+            <li class="pub-conference">
+                <div>
+                    <span class="scholar-title">World models for general surgical grasping</span>
+                    <p class="scholar-authors">Hongbin Lin, Bin Li, Chun Wai Wong, Juan Rojas, Xiangyu Chu, and Kwok Wai
+                        Samuel Au</p>
+                    <p class="scholar-venue">Robotics: Science and Systems (RSS), doi: <a
+                            href="https://doi.org/10.15607/rss.2024.xx.041" target="_blank"
+                            rel="noopener">10.15607/rss.2024.xx.041</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2024-07-15">2024</time></div>
+            </li>
+            <li class="pub-conference">
+                <div>
+                    <span class="scholar-title">A sliding cone control method for robust robot running</span>
+                    <p class="scholar-authors">Chun Ho David Lo, Wee Shen Ng, Xiangyu Chu, and Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">American Control Conference (ACC), doi: <a
+                            href="https://doi.org/10.23919/acc60939.2024.10644967" target="_blank"
+                            rel="noopener">10.23919/acc60939.2024.10644967</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2024-07-10">2024</time></div>
+            </li>
+            <li class="pub-journal">
+                <div>
+                    <span class="scholar-title">From behavior to bio-inspiration: aerial reorientation and multi-plane
+                        stability in kangaroo rats, computational models, and robots</span>
+                    <p class="scholar-authors">Xiangyu Chu, Marie Janneke Schwaner, Jiajun An, Shengzhi Wang, Craig P.
+                        McGowan, and Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">Integrative and Comparative Biology, doi: <a
+                            href="https://doi.org/10.1093/icb/icae079" target="_blank"
+                            rel="noopener">10.1093/icb/icae079</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2024-06-20">2024</time></div>
+            </li>
+            <li class="pub-journal">
+                <div>
+                    <span class="scholar-title">Design, optimization, and experimental validation of a handheld
+                        nonconstant-curvature hybrid-structure robotic instrument for maxillary sinus surgery</span>
+                    <p class="scholar-authors">Xuchen Wang, Xin Ma, Puchen Zhu, Wee Shen Ng, Huayu Zhang, Xianfeng Xia,
+                        Russell H. Taylor, and Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">IEEE/ASME Transactions on Mechatronics, doi: <a
+                            href="https://doi.org/10.1109/tmech.2024.3402445" target="_blank"
+                            rel="noopener">10.1109/tmech.2024.3402445</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2024-06-07">2024</time></div>
+            </li>
+            <li class="pub-journal">
+                <div>
+                    <span class="scholar-title">A minimal set of parameters based depth-dependent distortion model and
+                        its calibration method for stereo vision systems</span>
+                    <p class="scholar-authors">Xin Ma, Puchen Zhu, Xiao Li, Xiaoyin Zheng, Jianshu Zhou, Xuchen Wang,
+                        and Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">IEEE Transactions on Instrumentation and Measurement, doi: <a
+                            href="https://doi.org/10.1109/tim.2024.3406802" target="_blank"
+                            rel="noopener">10.1109/tim.2024.3406802</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2024-05-29">2024</time></div>
+            </li>
+            <li class="pub-conference">
+                <div>
+                    <span class="scholar-title">Interactive navigation in environments with traversable obstacles using
+                        large language and vision-language models</span>
+                    <p class="scholar-authors">Zhen Zhang, Anran Lin, Chun Wai Wong, Xiangyu Chu, Qi Dou, and Kwok Wai
+                        Samuel Au</p>
+                    <p class="scholar-venue">IEEE International Conference on Robotics and Automation (ICRA), doi: <a
+                            href="https://doi.org/10.1109/icra57147.2024.10610751" target="_blank"
+                            rel="noopener">10.1109/icra57147.2024.10610751</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2024-05-13">2024</time></div>
+            </li>
+            <li class="pub-journal">
+                <div>
+                    <span class="scholar-title">Learning-based MPC with safety filter for constrained deformable linear
+                        object manipulation</span>
+                    <p class="scholar-authors">Yunxi Tang, Xiangyu Chu, Jing Huang, and Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">IEEE Robotics and Automation Letters, doi: <a
+                            href="https://doi.org/10.1109/lra.2024.3362643" target="_blank"
+                            rel="noopener">10.1109/lra.2024.3362643</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2024-02-06">2024</time></div>
+            </li>
+            <li class="pub-conference">
+                <div>
+                    <span class="scholar-title">Legged robot running on rough terrains based on norm regulation of
+                        spring-loaded inverted pendulum model</span>
+                    <p class="scholar-authors">CH David Lo, CY Giselle Wong, Wee Shen Ng, Shengzhi Wang, Xiangyu Chu,
+                        and Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">IEEE-RAS 22nd International Conference on Humanoid Robots (Humanoids), doi:
+                        <a href="https://doi.org/10.1109/humanoids57100.2023.10375173" target="_blank"
+                            rel="noopener">10.1109/humanoids57100.2023.10375173</a>
+                    </p>
+                </div>
+                <div class="scholar-year"><time datetime="2023-12-12">2023</time></div>
+            </li>
+            <li class="pub-journal">
+                <div>
+                    <span class="scholar-title">Deformable object manipulation with constraints using path set planning
+                        and tracking</span>
+                    <p class="scholar-authors">Jing Huang, Xiangyu Chu, Xin Ma, and Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">IEEE Transactions on Robotics, doi: <a
+                            href="https://doi.org/10.1109/tro.2023.3306618" target="_blank"
+                            rel="noopener">10.1109/tro.2023.3306618</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2023-10-12">2023</time></div>
+            </li>
+            <li class="pub-journal">
+                <div>
+                    <span class="scholar-title">Combining tail and reaction wheel for underactuated spatial
+                        reorientation in robot falling with quadratic programming</span>
+                    <p class="scholar-authors">Xiangyu Chu, Shengzhi Wang, Raymond Ng, Chun Yin Fan, Jiajun An, and Kwok
+                        Wai Samuel Au</p>
+                    <p class="scholar-venue">IEEE Robotics and Automation Letters, doi: <a
+                            href="https://doi.org/10.1109/lra.2023.3322079" target="_blank"
+                            rel="noopener">10.1109/lra.2023.3322079</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2023-10-04">2023</time></div>
+            </li>
+            <li class="pub-conference">
+                <div>
+                    <span class="scholar-title">A shared-control dexterous robotic system for assisting transoral
+                        mandibular fracture reduction: development and cadaver study</span>
+                    <p class="scholar-authors">Yan Wang, Hao Zheng, Yu-Chung Lee, Catherine P. L. Chan, Y.-K. Chan,
+                        Russell H. Taylor, and Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS),
+                        doi: <a href="https://doi.org/10.1109/iros55552.2023.10342097" target="_blank"
+                            rel="noopener">10.1109/iros55552.2023.10342097</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2023-10-01">2023</time></div>
+            </li>
+            <li class="pub-conference">
+                <div>
+                    <span class="scholar-title">End-to-end learning of deep visuomotor policy for needle picking</span>
+                    <p class="scholar-authors">Hongbin Lin, Bin Li, Xiangyu Chu, Qi Dou, Yun-Hui Liu, and Kwok Wai
+                        Samuel Au</p>
+                    <p class="scholar-venue">IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS),
+                        doi: <a href="https://doi.org/10.1109/iros55552.2023.10342194" target="_blank"
+                            rel="noopener">10.1109/iros55552.2023.10342194</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2023-10-01">2023</time></div>
+            </li>
+            <li class="pub-conference">
+                <div>
+                    <span class="scholar-title">Model-free large-scale cloth spreading with mobile manipulation: initial
+                        feasibility study</span>
+                    <p class="scholar-authors">Xiangyu Chu, Shengzhi Wang, Minjian Feng, Jiaxi Zheng, Yuxuan Zhao, Jing
+                        Huang, and Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">IEEE International Conference on Automation Science and Engineering (CASE),
+                        doi: <a href="https://doi.org/10.1109/case56687.2023.10260538" target="_blank"
+                            rel="noopener">10.1109/case56687.2023.10260538</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2023-08-26">2023</time></div>
+            </li>
+            <li class="pub-patent">
+                <div>
+                    <span class="scholar-title">Articulating surgical device</span>
+                    <p class="scholar-authors">Kwok Wai Samuel Au, Yan Wang, and Hoi Wut Yip</p>
+                    <p class="scholar-venue">US Patent Application, <a
+                            href="https://patents.google.com/patent/US20230248417A1/en" target="_blank"
+                            rel="noopener">US 2023/0248417 A1</a>, pending</p>
+                </div>
+                <div class="scholar-year"><time datetime="2023-08-10">2023</time></div>
+            </li>
+            <li class="pub-journal">
+                <div>
+                    <span class="scholar-title">Design and experimental validation of a novel hybrid continuum robot
+                        with enhanced dexterity and manipulability in confined space</span>
+                    <p class="scholar-authors">Xin Ma, Xuchen Wang, Zihao Zhang, Puchen Zhu, Shing Shin Cheng, and Kwok
+                        Wai Samuel Au</p>
+                    <p class="scholar-venue">IEEE/ASME Transactions on Mechatronics, doi: <a
+                            href="https://doi.org/10.1109/tmech.2023.3276076" target="_blank"
+                            rel="noopener">10.1109/tmech.2023.3276076</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2023-06-07">2023</time></div>
+            </li>
+            <li class="pub-conference">
+                <div>
+                    <span class="scholar-title">Towards exact interaction force control for underactuated quadrupedal
+                        systems with orthogonal projection and quadratic programming</span>
+                    <p class="scholar-authors">Shengzhi Wang, Xiangyu Chu, and Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">IEEE International Conference on Robotics and Automation (ICRA), doi: <a
+                            href="https://doi.org/10.1109/icra48891.2023.10160835" target="_blank"
+                            rel="noopener">10.1109/icra48891.2023.10160835</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2023-05-29">2023</time></div>
+            </li>
+            <li class="pub-conference">
+                <div>
+                    <span class="scholar-title">Towards safe landing of falling quadruped robots using a 3-DoF morphable
+                        inertial tail</span>
+                    <p class="scholar-authors">Yunxi Tang, Jiajun An, Xiangyu Chu, Shengzhi Wang, Ching Yan Wong, and
+                        Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">IEEE International Conference on Robotics and Automation (ICRA), doi: <a
+                            href="https://doi.org/10.1109/icra48891.2023.10161422" target="_blank"
+                            rel="noopener">10.1109/icra48891.2023.10161422</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2023-05-29">2023</time></div>
+            </li>
+            <li class="pub-journal">
+                <div>
+                    <span class="scholar-title">A fast soft robotic laser sweeping system using data-driven modeling
+                        approach</span>
+                    <p class="scholar-authors">Kui Wang, Xiaomei Wang, Justin Di-Lang Ho, Ge Fang, Bohao Zhu, Rongying
+                        Xie, Yun-Hui Liu, Kwok Wai Samuel Au, Jason Ying-Kuen Chan, and Ka-Wai Kwok</p>
+                    <p class="scholar-venue">IEEE Transactions on Robotics, doi: <a
+                            href="https://doi.org/10.1109/tro.2023.3262118" target="_blank"
+                            rel="noopener">10.1109/tro.2023.3262118</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2023-04-19">2023</time></div>
+            </li>
+            <li class="pub-journal">
+                <div>
+                    <span class="scholar-title">Learning-based visual-strain fusion for eye-in-hand continuum robot pose
+                        estimation and control</span>
+                    <p class="scholar-authors">Xiaomei Wang, Jing Dai, Hon-Sing Tong, Kui Wang, Ge Fang, Xiaochen Xie,
+                        Yun-Hui Liu, Kwok Wai Samuel Au, and Ka-Wai Kwok</p>
+                    <p class="scholar-venue">IEEE Transactions on Robotics, doi: <a
+                            href="https://doi.org/10.1109/tro.2023.3240556" target="_blank"
+                            rel="noopener">10.1109/tro.2023.3240556</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2023-02-24">2023</time></div>
+            </li>
+            <li class="pub-journal">
+                <div>
+                    <span class="scholar-title">Task-oriented grasping position selection in deformable object
+                        manipulation</span>
+                    <p class="scholar-authors">Jing Huang and Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">IEEE Robotics and Automation Letters, doi: <a
+                            href="https://doi.org/10.1109/lra.2022.3231495" target="_blank"
+                            rel="noopener">10.1109/lra.2022.3231495</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2022-12-23">2022</time></div>
+            </li>
+            <li class="pub-conference">
+                <div>
+                    <span class="scholar-title">Design, teleoperation control and experimental validation of a dexterous
+                        robotic flexible endoscope for laparoscopic surgery</span>
+                    <p class="scholar-authors">Xin Ma, Xuchen Wang, Rui Cao, and Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS),
+                        doi: <a href="https://doi.org/10.1109/iros47612.2022.9981536" target="_blank"
+                            rel="noopener">10.1109/iros47612.2022.9981536</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2022-10-23">2022</time></div>
+            </li>
+            <li class="pub-journal">
+                <div>
+                    <span class="scholar-title">Feedback control for collision-free nonholonomic vehicle navigation on
+                        SE(2) with null space circumvention</span>
+                    <p class="scholar-authors">Xiangyu Chu, Raymond Ng, Hesheng Wang, and Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">IEEE/ASME Transactions on Mechatronics, doi: <a
+                            href="https://doi.org/10.1109/tmech.2022.3186174" target="_blank"
+                            rel="noopener">10.1109/tmech.2022.3186174</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2022-07-08">2022</time></div>
+            </li>
+            <li class="pub-conference">
+                <div>
+                    <span class="scholar-title">Adaptive flight stabilization framework for a planar 4R-Foldable
+                        quadrotor: utilizing morphing to navigate in confined environments</span>
+                    <p class="scholar-authors">Jawad Mehmood Butt, Xin Ma, Xiangyu Chu, and Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">American Control Conference (ACC), doi: <a
+                            href="https://doi.org/10.23919/acc53348.2022.9867402" target="_blank"
+                            rel="noopener">10.23919/acc53348.2022.9867402</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2022-06-08">2022</time></div>
+            </li>
+            <li class="pub-journal">
+                <div>
+                    <span class="scholar-title">Hybrid-structure hand-held robotic endoscope for sinus surgery with
+                        enhanced distal dexterity</span>
+                    <p class="scholar-authors">Xuchen Wang, Junyan Yan, Xin Ma, Jason Y. K. Chan, Russell H. Taylor,
+                        Shing Shin Cheng, and Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">IEEE/ASME Transactions on Mechatronics, doi: <a
+                            href="https://doi.org/10.1109/tmech.2022.3175807" target="_blank"
+                            rel="noopener">10.1109/tmech.2022.3175807</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2022-06-03">2022</time></div>
+            </li>
+            <li class="pub-journal">
+                <div>
+                    <span class="scholar-title">Design and experimental validation of a monopod robot with 3-DoF
+                        morphable inertial tail for somersault</span>
+                    <p class="scholar-authors">Jiajun An, Xin Ma, Chun Ho David Lo, Weeshen Ng, Xiangyu Chu, and Kwok
+                        Wai Samuel Au</p>
+                    <p class="scholar-venue">IEEE/ASME Transactions on Mechatronics, doi: <a
+                            href="https://doi.org/10.1109/tmech.2022.3167990" target="_blank"
+                            rel="noopener">10.1109/tmech.2022.3167990</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2022-05-19">2022</time></div>
+            </li>
+            <li class="pub-journal">
+                <div>
+                    <span class="scholar-title">Opposite treatment on null space: a unified control framework for a
+                        class of underactuated robotic systems with null space avoidance</span>
+                    <p class="scholar-authors">Xiangyu Chu, Chun Ho Lo, Tommaso Proietti, Conor J. Walsh, and Kwok Wai
+                        Samuel Au</p>
+                    <p class="scholar-venue">IEEE Transactions on Control Systems Technology, doi: <a
+                            href="https://doi.org/10.1109/tcst.2022.3171914" target="_blank"
+                            rel="noopener">10.1109/tcst.2022.3171914</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2022-05-18">2022</time></div>
+            </li>
+            <li class="pub-journal">
+                <div>
+                    <span class="scholar-title">Exponential attitude tracking and disturbance rejection of rigid body
+                        systems</span>
+                    <p class="scholar-authors">Changran He and Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">International Journal of Robust and Nonlinear Control, doi: <a
+                            href="https://doi.org/10.1002/rnc.6149" target="_blank" rel="noopener">10.1002/rnc.6149</a>
+                    </p>
+                </div>
+                <div class="scholar-year"><time datetime="2022-04-22">2022</time></div>
+            </li>
+            <li class="pub-journal">
+                <div>
+                    <span class="scholar-title">A handheld steerable surgical drill with a novel articulated joint
+                        module for dexterous confined-space bone work</span>
+                    <p class="scholar-authors">Yan Wang, Hao Zheng, Russell H. Taylor, and Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">IEEE Transactions on Biomedical Engineering, doi: <a
+                            href="https://doi.org/10.1109/tbme.2022.3157818" target="_blank"
+                            rel="noopener">10.1109/tbme.2022.3157818</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2022-03-09">2022</time></div>
+            </li>
+            <li class="pub-conference">
+                <div>
+                    <span class="scholar-title">Modeling and control of soft robotic tail based aerial maneuvering(STAM)
+                        system: towards agile self-righting with a soft tail</span>
+                    <p class="scholar-authors">Jawad Mehmood Butt, Xiangyu Chu, Hao Zheng, Xiaomei Wang, Ka-Wai Kwok,
+                        and Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">IEEE International Conference on Advanced Robotics (ICAR), doi: <a
+                            href="https://doi.org/10.1109/icar53236.2021.9659375" target="_blank"
+                            rel="noopener">10.1109/icar53236.2021.9659375</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2021-12-06">2021</time></div>
+            </li>
+            <li class="pub-conference">
+                <div>
+                    <span class="scholar-title">A geometry metric for nonholonomically constrained three degree of
+                        freedom kinematic systems: enabling real-time control and online optimization</span>
+                    <p class="scholar-authors">Xiangyu Chu and Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">RSS Workshop on Geometry and Topology in Robotics: Learning, Optimization,
+                        Planning, and Control</p>
+                </div>
+                <div class="scholar-year"><time datetime="2021-07-12">2021</time></div>
+            </li>
+            <li class="pub-conference">
+                <div>
+                    <span class="scholar-title">Operational space control for planar PAN-1 underactuated manipulators
+                        using orthogonal projection and quadratic programming</span>
+                    <p class="scholar-authors">Xiangyu Chu, Yunxi Tang, Alessandro M. Giordano, Tan Chen, and Kwok Wai
+                        Samuel Au</p>
+                    <p class="scholar-venue">IEEE International Conference on Robotics and Automation (ICRA), doi: <a
+                            href="https://doi.org/10.1109/icra48506.2021.9561278" target="_blank"
+                            rel="noopener">10.1109/icra48506.2021.9561278</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2021-05-30">2021</time></div>
+            </li>
+            <li class="pub-conference">
+                <div>
+                    <span class="scholar-title">Development of a portable hybrid pendubot-acrobot robotic platform for
+                        on and off campus teaching and learning</span>
+                    <p class="scholar-authors">Raymond Ng, Yunxi Tang, Hongbin Lin, Xiangyu Chu, and Kwok Wai Samuel Au
+                    </p>
+                    <p class="scholar-venue">American Control Conference (ACC), doi: <a
+                            href="https://doi.org/10.23919/acc50511.2021.9482939" target="_blank"
+                            rel="noopener">10.23919/acc50511.2021.9482939</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2021-05-25">2021</time></div>
+            </li>
+            <li class="pub-journal">
+                <div>
+                    <span class="scholar-title">Design and experimental validation of a miniaturized robotic
+                        tendon-driven articulated surgical drill for enhancing distal dexterity in minimally invasive
+                        spine fusion</span>
+                    <p class="scholar-authors">Yan Wang, Hoi-Wut Yip, Hao Zheng, Hongbin Lin, Russell H. Taylor, and
+                        Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">IEEE/ASME Transactions on Mechatronics, doi: <a
+                            href="https://doi.org/10.1109/tmech.2021.3077706" target="_blank"
+                            rel="noopener">10.1109/tmech.2021.3077706</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2021-05-05">2021</time></div>
+            </li>
+            <li class="pub-journal">
+                <div>
+                    <span class="scholar-title">Learning deep nets for gravitational dynamics with unknown disturbance
+                        through physical knowledge distillation: initial feasibility study</span>
+                    <p class="scholar-authors">Hongbin Lin, Qian Gao, Xiangyu Chu, Qi Dou, Anton Deguet, Peter
+                        Kazanzides, and Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">IEEE Robotics and Automation Letters, doi: <a
+                            href="https://doi.org/10.1109/lra.2021.3062351" target="_blank"
+                            rel="noopener">10.1109/lra.2021.3062351</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2021-02-25">2021</time></div>
+            </li>
+            <li class="pub-journal">
+                <div>
+                    <span class="scholar-title">Non-fixed contact manipulation control framework for deformable objects
+                        with active contact adjustment</span>
+                    <p class="scholar-authors">Jing Huang, Yuanpei Cai, Xiangyu Chu, Russell H. Taylor, and Kwok Wai
+                        Samuel Au</p>
+                    <p class="scholar-venue">IEEE Robotics and Automation Letters, doi: <a
+                            href="https://doi.org/10.1109/lra.2021.3062302" target="_blank"
+                            rel="noopener">10.1109/lra.2021.3062302</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2021-02-25">2021</time></div>
+            </li>
+            <li class="pub-journal">
+                <div>
+                    <span class="scholar-title">A task space virtual fixture architecture for tele-operated surgical
+                        system with slave joint limit constraints</span>
+                    <p class="scholar-authors">Yuanpei Cai, PangFai Choi, Chiu-Wai Vincent Hui, Russell H. Taylor, and
+                        Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">IEEE/ASME Transactions on Mechatronics, doi: <a
+                            href="https://doi.org/10.1109/tmech.2021.3058174" target="_blank"
+                            rel="noopener">10.1109/tmech.2021.3058174</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2021-02-10">2021</time></div>
+            </li>
+            <li class="pub-conference">
+                <div>
+                    <span class="scholar-title">Task-oriented contact adjustment in deformable objects manipulation with
+                        non-fixed contact</span>
+                    <p class="scholar-authors">Jing Huang, Yuanpei Cai, Xiangyu Chu, and Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">IROS Workshop on Managing Deformation: A Step Towards Higher Robot Autonomy
+                    </p>
+                </div>
+                <div class="scholar-year"><time datetime="2020-10-24">2020</time></div>
+            </li>
+            <li class="pub-conference">
+                <div>
+                    <span class="scholar-title">Development of a bipedal hopping robot with morphable inertial tail for
+                        agile locomotion</span>
+                    <p class="scholar-authors">Jiajun An, Tsz Yin Chung, Chun Ho David Lo, Carlos Ma, Xiangyu Chu, and
+                        Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">International Conference for Biomedical Robotics and Biomechatronics
+                        (BioRob), doi: <a href="https://doi.org/10.1109/biorob49111.2020.9224428" target="_blank"
+                            rel="noopener">10.1109/biorob49111.2020.9224428</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2020-10-15">2020</time></div>
+            </li>
+            <li class="pub-conference">
+                <div>
+                    <span class="scholar-title">A norm-regulation-based limit cycle control of vertical hoppers</span>
+                    <p class="scholar-authors">Chun Ho David Lo, Xiangyu Chu, and Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">American Control Conference (ACC), doi: <a
+                            href="https://doi.org/10.23919/acc45564.2020.9147375" target="_blank"
+                            rel="noopener">10.23919/acc45564.2020.9147375</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2020-07-27">2020</time></div>
+            </li>
+            <li class="pub-conference">
+                <div>
+                    <span class="scholar-title">A novel strategy for stabilization control of a planar three-link
+                        underactuated manipulator with a passive first joint</span>
+                    <p class="scholar-authors">Xiangyu Chu and Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">American Control Conference (ACC), doi: <a
+                            href="https://doi.org/10.23919/acc45564.2020.9147798" target="_blank"
+                            rel="noopener">10.23919/acc45564.2020.9147798</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2020-07-27">2020</time></div>
+            </li>
+            <li class="pub-conference">
+                <div>
+                    <span class="scholar-title">Utilizing null space in overactuated systems vs avoiding null space in
+                        underactuated systems</span>
+                    <p class="scholar-authors">Xiangyu Chu</p>
+                    <p class="scholar-venue">RSS Workshop on Robotics Retrospectives</p>
+                </div>
+                <div class="scholar-year"><time datetime="2020-07-12">2020</time></div>
+            </li>
+            <li class="pub-conference">
+                <div>
+                    <span class="scholar-title">Towards agile maneuver generation for terrestrial robots in flight
+                        phase</span>
+                    <p class="scholar-authors">Xiangyu Chu, Chun Ho David Lo, Carlos Ma, Jiajun An, Tsz Yin Chung, and
+                        Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">Dynamic Walking</p>
+                </div>
+                <div class="scholar-year"><time datetime="2020-05-11">2020</time></div>
+            </li>
+            <li class="pub-conference">
+                <div>
+                    <span class="scholar-title">Opposite treatments on null space: null space projection vs null space
+                        avoidance</span>
+                    <p class="scholar-authors">Xiangyu Chu, Chun Ho David Lo, and Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">IROS Late Breaking Results Poster</p>
+                </div>
+                <div class="scholar-year"><time datetime="2019-11-04">2019</time></div>
+            </li>
+            <li class="pub-journal">
+                <div>
+                    <span class="scholar-title">Interfacing soft and hard: a spring reinforced actuator</span>
+                    <p class="scholar-authors">Hing-Choi Fu, Justin D. L. Ho, Kit-Hang Lee, Yu Cai Hu, Kwok Wai Samuel
+                        Au, Kyu-Jin Cho, Kam Yim Sze, and Ka-Wai Kwok</p>
+                    <p class="scholar-venue">Soft Robotics, doi: <a href="https://doi.org/10.1089/soro.2018.0118"
+                            target="_blank" rel="noopener">10.1089/soro.2018.0118</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2019-10-15">2019</time></div>
+            </li>
+            <li class="pub-journal">
+                <div>
+                    <span class="scholar-title">Null-space-avoidance-based orientation control framework for
+                        underactuated, tail-inspired robotic systems in flight phase</span>
+                    <p class="scholar-authors">Xiangyu Chu, Chun Ho David Lo, Carlos Ma, and Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">IEEE Robotics and Automation Letters, doi: <a
+                            href="https://doi.org/10.1109/lra.2019.2928759" target="_blank"
+                            rel="noopener">10.1109/lra.2019.2928759</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2019-07-15">2019</time></div>
+            </li>
+            <li class="pub-journal">
+                <div>
+                    <span class="scholar-title">A reliable gravity compensation control strategy for dVRK robotic arms
+                        with nonlinear disturbance forces</span>
+                    <p class="scholar-authors">Hongbin Lin, Chiu-Wai Vincent Hui, Yan Wang, Anton Deguet, Peter
+                        Kazanzides, and Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">IEEE Robotics and Automation Letters, doi: <a
+                            href="https://doi.org/10.1109/lra.2019.2927953" target="_blank"
+                            rel="noopener">10.1109/lra.2019.2927953</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2019-07-10">2019</time></div>
+            </li>
+            <li class="pub-conference">
+                <div>
+                    <span class="scholar-title">Semi-analytical orientation alignment with joint limit constraints for
+                        tele-operated surgical system</span>
+                    <p class="scholar-authors">Yuanpei Cai, Chiu-Wai Vincent Hui, and Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">Hamlyn Symposium, doi: <a href="https://doi.org/10.31256/hsmr2019.25"
+                            target="_blank" rel="noopener">10.31256/hsmr2019.25</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2019-06-04">2019</time></div>
+            </li>
+            <li class="pub-conference">
+                <div>
+                    <span class="scholar-title">A reliable gravity compensation software package for the da Vinci
+                        Research Kit</span>
+                    <p class="scholar-authors">Hongbin Lin, Chiu-Wai Vincent Hui, Yan Wang, Anton Deguet, Peter
+                        Kazanzides, and Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">ICRA Workshop on Open Challenges and State-of-the-Art in Control System
+                        Design and Technology Development for Surgical Robotic Systems</p>
+                </div>
+                <div class="scholar-year"><time datetime="2019-05-23">2019</time></div>
+            </li>
+            <li class="pub-conference">
+                <div>
+                    <span class="scholar-title">Null-space-avoidance-based attitude stabilization control for coupled
+                        space robot systems</span>
+                    <p class="scholar-authors">Xiangyu Chu, Chun Ho David Lo, Carlos Ma, and Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">ICRA Workshop on Robotic Technology for In-Space Assembly</p>
+                </div>
+                <div class="scholar-year"><time datetime="2019-05-23">2019</time></div>
+            </li>
+            <li class="pub-conference">
+                <div>
+                    <span class="scholar-title">A reliable gravity compensation software package for da Vinci Research
+                        Kit</span>
+                    <p class="scholar-authors">Hongbin Lin, Chiu-Wai Vincent Hui, and Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">IEEE International Conference on Robotics and Automation (ICRA)</p>
+                </div>
+                <div class="scholar-year"><time datetime="2019-05-20">2019</time></div>
+            </li>
+            <li class="pub-journal">
+                <div>
+                    <span class="scholar-title">Underwater dynamic visual servoing for a soft robot arm with online
+                        distortion correction</span>
+                    <p class="scholar-authors">Fan Xu, Hesheng Wang, Jingchuan Wang, Kwok Wai Samuel Au, and Weidong
+                        Chen</p>
+                    <p class="scholar-venue">IEEE/ASME Transactions on Mechatronics, doi: <a
+                            href="https://doi.org/10.1109/tmech.2019.2908242" target="_blank"
+                            rel="noopener">10.1109/tmech.2019.2908242</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2019-03-29">2019</time></div>
+            </li>
+            <li class="pub-journal">
+                <div>
+                    <span class="scholar-title">Transcervical minimally invasive esophagectomy using da Vinci® SP™
+                        surgical system: a feasibility study in cadaveric model</span>
+                    <p class="scholar-authors">Philip W. Y. Chiu, Simon S. M. Ng, and Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">Surgical Endoscopy, doi: <a
+                            href="https://doi.org/10.1007/s00464-018-06628-3" target="_blank"
+                            rel="noopener">10.1007/s00464-018-06628-3</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2019-01-02">2019</time></div>
+            </li>
+            <li class="pub-journal">
+                <div>
+                    <span class="scholar-title">Underwater dynamic modeling for a cable-driven soft robot arm</span>
+                    <p class="scholar-authors">Fan Xu, Hesheng Wang, Kwok Wai Samuel Au, Weidong Chen, and Yanzi Miao
+                    </p>
+                    <p class="scholar-venue">IEEE/ASME Transactions on Mechatronics, doi: <a
+                            href="https://doi.org/10.1109/tmech.2018.2872972" target="_blank"
+                            rel="noopener">10.1109/tmech.2018.2872972</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2018-12">2018</time></div>
+            </li>
+            <li class="pub-journal">
+                <div>
+                    <span class="scholar-title">A compliant robotic instrument with coupled tendon driven articulated
+                        wrist control for organ retraction</span>
+                    <p class="scholar-authors">Xiangyu Chu, Hoi Wut Yip, Yuanpei Cai, Tsz Yin Chung, Stuart Moran, and
+                        Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">IEEE Robotics and Automation Letters, doi: <a
+                            href="https://doi.org/10.1109/lra.2018.2863373" target="_blank"
+                            rel="noopener">10.1109/lra.2018.2863373</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2018-08-06">2018</time></div>
+            </li>
+            <li class="pub-conference">
+                <div>
+                    <span class="scholar-title">A systematic modelling approach for motor-cable-joint kinematics of
+                        coupled tendon-driven surgical instrument</span>
+                    <p class="scholar-authors">Xiangyu Chu, Tsz Yin Chung, and Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">Hamlyn Symposium, doi: <a href="https://doi.org/10.31256/hsmr2018.9"
+                            target="_blank" rel="noopener">10.31256/hsmr2018.9</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2018-06-24">2018</time></div>
+            </li>
+            <li class="pub-conference">
+                <div>
+                    <span class="scholar-title">Design of an inherently safe robotic instrument for organ retraction by
+                        exploiting the buckling principle of a continuum bending beam</span>
+                    <p class="scholar-authors">Hoi Wut Yip, Yuanpei Cai, Tsz Yin Chung, Stuart Moran, and Kwok Wai
+                        Samuel Au</p>
+                    <p class="scholar-venue">Hamlyn Symposium</p>
+                </div>
+                <div class="scholar-year"><time datetime="2018-06-24">2018</time></div>
+            </li>
+            <li class="pub-conference">
+                <div>
+                    <span class="scholar-title">A case study of gravity compensation for da Vinci robotic manipulator: a
+                        practical perspective</span>
+                    <p class="scholar-authors">K. Lu, Hongbin Lin, Chiu-Wai Vincent Hui, and Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">ICRA Workshop on Supervised Autonomy in Surgical Robotics</p>
+                </div>
+                <div class="scholar-year"><time datetime="2018-05-21">2018</time></div>
+            </li>
+            <li class="pub-conference">
+                <div>
+                    <span class="scholar-title">Comparison study of geometric representation for continuum
+                        manipulator</span>
+                    <p class="scholar-authors">Ka Chun Lau, Yuanpei Cai, Yeung Yam, and Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">ICRA Workshop on Supervised Autonomy in Surgical Robotics</p>
+                </div>
+                <div class="scholar-year"><time datetime="2018-05-21">2018</time></div>
+            </li>
+            <li class="pub-journal">
+                <div>
+                    <span class="scholar-title">Powered ankle-foot prosthesis improves walking metabolic economy</span>
+                    <p class="scholar-authors">Kwok Wai Samuel Au, Jeff A. Weber, and Hugh Herr</p>
+                    <p class="scholar-venue">IEEE Transactions on Robotics, doi: <a
+                            href="https://doi.org/10.1109/tro.2008.2008747" target="_blank"
+                            rel="noopener">10.1109/tro.2008.2008747</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2009-01-16">2009</time></div>
+            </li>
+            <li class="pub-journal">
+                <div>
+                    <span class="scholar-title">Powered ankle-foot prosthesis</span>
+                    <p class="scholar-authors">Kwok Wai Samuel Au and Hugh Herr</p>
+                    <p class="scholar-venue">IEEE Robotics & Automation Magazine, doi: <a
+                            href="https://doi.org/10.1109/mra.2008.927697" target="_blank"
+                            rel="noopener">10.1109/mra.2008.927697</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2008-09-17">2008</time></div>
+            </li>
+            <li class="pub-journal">
+                <div>
+                    <span class="scholar-title">Powered ankle-foot prosthesis to assist level-ground and stair-descent
+                        gaits</span>
+                    <p class="scholar-authors">Kwok Wai Samuel Au, Max Berniker, and Hugh Herr</p>
+                    <p class="scholar-venue">Neural Networks, doi: <a
+                            href="https://doi.org/10.1016/j.neunet.2008.03.006" target="_blank"
+                            rel="noopener">10.1016/j.neunet.2008.03.006</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2008-04-27">2008</time></div>
+            </li>
+            <li class="pub-journal">
+                <div>
+                    <span class="scholar-title">Stabilization and path following of a single wheel robot</span>
+                    <p class="scholar-authors">Yangsheng Xu and Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">IEEE/ASME Transactions on Mechatronics, doi: <a
+                            href="https://doi.org/10.1109/tmech.2004.828642" target="_blank"
+                            rel="noopener">10.1109/tmech.2004.828642</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2004-06-21">2004</time></div>
+            </li>
+            <li class="pub-journal">
+                <div>
+                    <span class="scholar-title">Control of tilt-up motion of a single wheel robot via model-based and
+                        human-based controllers</span>
+                    <p class="scholar-authors">Kwok Wai Samuel Au, Yangsheng Xu, and Wilson W.K. Yu</p>
+                    <p class="scholar-venue">Mechatronics, doi: <a href="https://doi.org/10.1016/s0957-4158(00)00028-3"
+                            target="_blank" rel="noopener">10.1016/s0957-4158(00)00028-3</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="2001-06">2001</time></div>
+            </li>
+            <li class="pub-journal">
+                <div>
+                    <span class="scholar-title">Dynamic mobility with single-wheel configuration</span>
+                    <p class="scholar-authors">Yangsheng Xu, H. Ben Brown Jr, and Kwok Wai Samuel Au</p>
+                    <p class="scholar-venue">The International Journal of Robotics Research, doi: <a
+                            href="https://doi.org/10.1177/02783649922066538" target="_blank"
+                            rel="noopener">10.1177/02783649922066538</a></p>
+                </div>
+                <div class="scholar-year"><time datetime="1999-07-01">1999</time></div>
+            </li>
+
+        </ul>
+    </main>
+    <footer class="site-footer">
+        <div class="container footer-row">
+            <p class="footer-note">Thanks for the <a href="https://github.com/LeCAR-Lab/LeCAR-Lab.github.io"
+                    target="_blank" rel="noopener">source code</a> from <a href="https://lecar-lab.github.io/"
+                    target="_blank" rel="noopener">LeCAR
+                    Lab</a>. Last updated: 2026-09-25.</p>
+            <div class="social-icons">
+                <a href="https://youtube.com/@bioroboticsmedicaltechnolo8845" target="_blank" aria-label="YouTube"><i
+                        class="fab fa-youtube"></i></a>
+                <a href="https://github.com/biomedirobotics" target="_blank" aria-label="GitHub"><i
+                        class="fab fa-github"></i></a>
+            </div>
+        </div>
+    </footer>
 </body>
 
 </html>
