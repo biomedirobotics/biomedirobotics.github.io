@@ -273,7 +273,8 @@ h3 + .section-note {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.showcase a:hover {
+/* Only real links lift; the PI page's tiles are plain media. */
+.showcase a[href]:hover {
   transform: translateY(-3px);
   box-shadow: 0 10px 28px var(--shadow);
 }
@@ -824,225 +825,91 @@ h3 + .section-note {
   font-size: 0.86rem;
 }
 
-/* Original page separated the project sections with divider rules. */
-.pi-bio hr,
-.bio-divider {
-  border: 0;
-  border-top: 1px solid var(--rule);
-  margin: 34px 0 28px;
+/* --- PI page ------------------------------------------------------------ */
+/* The page is plain flow — headings, paragraphs and media groups. The media
+   reuse the homepage's .showcase grid as-is: three columns, 16px gap, the same
+   tile chrome, collapsing to one column at 560px. Each group is its own
+   <div class="showcase">, and a video tile wraps the player in .pi-frame so the
+   iframe keeps its 16:9 ratio. Scoped to .pi-page. */
+
+/* Hero: 2048x1133, so it spans the content column at its own ratio. (The
+   previous 84vh box letterboxed it, leaving ~238px of empty bands at a 900px
+   viewport.) */
+.pi-hero {
+  margin: 0 0 20px;
 }
 
-/* --- PI page: layout reproduction ---------------------------------------
-   Reproduces the original WordPress/Elementor page LAYOUT only. Values taken
-   from the original markup, Elementor's stylesheet and the page's own kit CSS
-   (post-5298.css): boxed container max-width 1200px, columns 25/33/50%,
-   10px column gutters, 20px between stacked widgets, images rendered at their
-   natural size and centred within their column.
-   Typography is deliberately NOT reproduced — the page uses the site's own
-   fonts and heading scale so it matches the other pages. Scoped to .pi-page. */
-
-.pi-page {
-  color: var(--ink);
-  font-size: 1rem;
-  line-height: 1.65;
-}
-
-/* Hero banner: the page capped its height at 84vh with object-fit: contain. */
 .pi-hero img {
-  height: 84vh;
-  object-fit: contain;
-  object-position: center center;
-  opacity: 0.97;
+  width: 100%;
+  height: auto;
 }
 
-/* The biography is text only (the portrait beside it was removed), so the block
-   simply spans the container, matching the banner above it. */
-.pi-bio {
-  margin: 0;
-}
-
-.pi-bio-text {
-  margin: 0;
-}
-
-/* The heading sits inside the text column, so its rule starts and ends with
-   the biography text (not behind the portrait). */
-.pi-bio-text h2 {
-  margin-top: 0;
-}
-
-.pi-bio-text p:last-child {
-  margin-bottom: 0;
-}
-
-@media (max-width: 560px) {
-}
-
-.pi-container {
-  /* The page's own Elementor CSS (post-5298.css) overrides the bundled default
-     of 1140px with 1200px, which also sets the responsive breakpoints below. */
-  max-width: 1200px;
+.pi-page img {
+  display: block;
+  max-width: 100%;
+  height: auto;
   margin: 0 auto;
-  padding: 0;
 }
 
-.pi-row {
+/* The PI showcase is a filmstrip, like the miniature portfolio it is modelled
+   on: every tile in a row is exactly the same height, and each medium keeps its
+   own aspect ratio, so the widths vary with the media. Nothing is cropped,
+   letterboxed or stretched — the tile chrome simply hugs each medium, and each
+   line is centred in the content column. No per-item ratio data is needed:
+   fixing the height and leaving the width auto does it. */
+.pi-page .showcase {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
-  margin-bottom: 20px;
-}
-
-.pi-row:last-child { margin-bottom: 0; }
-
-/* The kit set 20px between stacked widgets; rows already carry 20px, so the
-   inside-cell stack uses a clear single source of spacing. */
-.pi-cell > *:last-child { margin-bottom: 0; }
-
-/* Column widths in the original were declared per element in the page's own
-   CSS (e.g. 6.232% / 44.488% / 42.09% / 7.19%), not the bundled 25/33/50
-   defaults, so .pi-col takes its width from an inline style. */
-.pi-col { min-width: 0; }
-.pi-col-100 { width: 100%; }
-
-.pi-cell { padding: 10px; }
-
-.pi-cell > img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 0 auto;      /* original centred images inside their column */
-}
-
-/* Rows holding two or more images: make every image share the height of the
-   tallest so they line up. The row stretches its cells (align-items: stretch,
-   the flex default), each cell is a flex box that centres its image, and
-   object-fit: contain scales the shorter image to that height without
-   distorting it. Widths are each a percentage of their own column and those
-   columns are equal, so matching the height does not change any width.
-   Single-image rows are left alone. */
-/* The image is a stretched flex item, so it takes the row's height (set by the
-   tallest image) rather than relying on height:100%, which would resolve to
-   auto inside a centred flex cell. object-fit keeps each one undistorted. */
-/* Equal-height images within a row.
-   The width percentage stays authoritative but is capped, and the shared height
-   then drives the size; because width is auto the aspect ratio is preserved and
-   the *rendered* image is the same height in both columns. (object-fit alone is
-   not enough: the narrower image hits the width cap and letterboxes, so its
-   visible content still ends up shorter.) Single-image rows are untouched. */
-/* Paired media in a row.
-   The columns are given widths proportional to each image's aspect ratio, so
-   the row always fits while both images render at the same height with their
-   ratio intact. Forcing a height instead (height: Npx; width: auto) fails as
-   soon as the column is narrower than the ratio needs: the width shrinks but
-   the height does not, producing boxes like 396x340 (ratio 1.17 instead of
-   1.49). `width: auto !important` drops the per-image width % the page CSS
-   declared, and the two flex: rules below are the widest/narrowest ratios the
-   browser will accept as the column basis. */
-/* Mixed figure + video row. The video fills its column at 16:9 (the base
-   rule's max-width is lifted here, otherwise a height-driven size renders
-   wider than the cap and the player letterboxes). The figure is then given
-   that same height, so both keep their ratio and line up. */
-.pi-row--video {
-  align-items: center;
-}
-
-.pi-row--video .pi-video {
-  width: 100%;
-  max-width: none;
-  height: auto;
-  margin: 0;
-}
-
-/* The video fixes the row height at 16:9 of its column; the figure is scaled
-   to that same height (width follows the ratio, so nothing is squashed). */
-/* Height must win over the generic .pi-row--media image rule further down
-   (which sets height: auto), but max-width must NOT be forced: clamping the
-   width to the column while the height is fixed produces a distorted box
-   (362x195 for a 0.625 image). width: auto + a plain max-width lets the width
-   follow from the height, so the ratio is kept. */
-.pi-row--video .pi-cell > img {
-  height: var(--pi-video-h, 195px);
-}
-
-.pi-row--video .pi-video {
-  height: var(--pi-video-h, 195px);
-}
-
-.pi-row--media {
+  /* Centres each line; justify-content applies per line, so a wrapped row is
+     centred too rather than left-hugging. */
   justify-content: center;
+  gap: 16px;
+  /* One knob for the strip. 180px keeps the three-tile row (2 images + a 16:9
+     player, ratios summing to 4.77) on a single line at the 936px content
+     width; raising it wraps that row onto a second line. */
+  --tile-h: 180px;
+  /* Vertical rhythm around a row. The homepage's 40px top margin is tuned for
+     the hero above its grid and it has no bottom margin at all, which left text
+     sitting flush against the tiles here. A symmetric gap fixes both sides: the
+     paragraphs around a row have 0 top margin and 1em bottom, so collapsing
+     lands on this value above and below, and the References heading's 18px top
+     margin also collapses into it. Tune the strip's breathing room here. */
+  --row-gap: 28px;
+  margin: var(--row-gap) 0;
 }
 
-.pi-row--media > .pi-col:empty {
-  display: none;
-}
-
-.pi-row--media > .pi-col:has(img) {
-  flex: var(--ar-basis, 1) var(--ar-basis, 1) 0;
+.pi-page .showcase a {
+  flex: 0 0 auto;   /* a tile keeps the width its media needs */
   width: auto;
 }
 
-.pi-row--media .pi-cell > img {
-  /* Ratio-safe sizing: width follows from the height cap and the image's own
-     ratio, so nothing is squashed and every image in the row ends up the same
-     height. The columns are width-proportional (--ar-basis), so each image is
-     as wide as it can be while all of them still share one height. */
-  /* width: auto (beats the inline width % via the generator's !important-free
-     markup) and height: auto means the browser preserves each image's ratio;
-     columns are width-proportional so all images in a row land at one height. */
-  width: auto !important;
-  height: auto;
-  max-height: var(--pi-media-h, 340px);
-  max-width: 100%;
-  display: block;
-  margin: 0 auto;
+.pi-page .showcase img,
+.pi-page .showcase .pi-frame {
+  height: var(--tile-h);
+  width: auto;
 }
 
-/* Figure borders removed at the author's request: the pages figures are shown
-   bare. The class is kept as a hook in case borders are wanted again. */
-.pi-img-bordered {
-  border: 0;
-  border-radius: 0;
+@media (max-width: 800px) {
+  .pi-page .showcase {
+    --tile-h: 140px;
+  }
 }
 
-/* Typography follows the rest of the site: headings keep the site serif and
-   the site's global h2/h3 sizes; body copy uses the site sans. Only the
-   Elementor layout metrics (container, columns, gutters) are reproduced. */
-
-/* The site has no global h4/h5 rules, so give them the site heading treatment
-   rather than leaving them at browser defaults. */
-.pi-page h4,
-.pi-page h5 {
-  font-family: var(--serif);
-  color: var(--ink);
-  line-height: 1.25;
+@media (max-width: 560px) {
+  .pi-page .showcase {
+    --tile-h: 110px;
+  }
 }
 
-.pi-page h4 {
-  font-size: 1.18rem;
-  font-weight: 600;
-  margin: 0 0 10px;
-}
-
-.pi-page h5 {
-  font-size: 1.05rem;
-  font-weight: 600;
-  margin: 0 0 10px;
-}
-
-.pi-page p {
-  margin: 0 0 0.9rem;
-}
-
-.pi-video {
+/* Video: a 16:9 frame keeps the player's ratio at any column width. */
+.pi-frame {
   position: relative;
   width: 100%;
-  max-width: 560px;
   aspect-ratio: 16 / 9;
-  margin: 0 auto;
 }
 
-.pi-video iframe {
+.pi-frame iframe {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -1050,36 +917,49 @@ h3 + .section-note {
   border: 0;
 }
 
-/* Page CSS: solid 1px #b5b5b5, 15px padding above and below. */
-.pi-divider {
-  border: 0;
-  border-top: 1px solid #b5b5b5;
-  margin: 0 10px;
-  padding: 15px 0;
-  height: 1px;
-  box-sizing: content-box;
+/* The site styles h1-h3 only. The section titles above are therefore h3 (the
+   site's 1.18rem, matching the h4 treatment they replaced); "References" is a
+   subordinate label and gets the serif at a size between body copy and h3. */
+.pi-subhead {
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 18px 0 10px;
 }
 
-.pi-page .bio-caption {
-  font-size: 0.94rem;
-  color: var(--muted);
-  text-align: center;
-  margin: 0.4rem 0 0;
+/* 1em bottom-only, matching the collapsed 1em gap browser-default paragraph
+   margins produce on the other pages. */
+.pi-page p {
+  margin: 0 0 1em;
 }
 
-/* The original rendered each reference as an indented paragraph with an inline
-   [n] number (inline style: padding-left: 40px), not as an ordered list. */
-.pi-page .pi-ref {
-  padding-left: 40px;
-  margin: 0 0 0.9rem;
-  font-size: 0.95rem;
+/* References are a real numbered list, replacing the original page's
+   hand-written [n] prefixes and the 40px padding that faked the indent. With
+   list-style-position: outside the markers live in the padding, so the text
+   starts at the same ~40px the original used while wrapped lines align under the
+   first line (a hanging indent), and the markers sit flush with the prose.
+   No font-size and no colour: the list inherits the page's body text exactly
+   (1.04rem, var(--ink)), so a reference reads like any other prose here. */
+.pi-refs {
+  margin: 0;
+  /* 2.4em of the body size ~= the original's 40px. */
+  padding-left: 2.4em;
 }
 
-.pi-page .pi-ref:last-child {
+.pi-refs li {
+  /* Multi-line citations: at body size the line leading is ~11px, so the gap
+     between items has to clear that to read as a list. */
+  margin-bottom: 0.9rem;
+}
+
+.pi-refs li:last-child {
   margin-bottom: 0;
 }
 
-@media (max-width: 800px) {
-  /* stack the columns on small screens (per-element widths are inline) */
-  .pi-col { width: 100% !important; }
+/* Keep the page's [n] citation style, in the list's own colour so the markers
+   match the citation text. Browsers without ::marker content support fall back
+   to the default decimal marker. */
+.pi-refs li::marker {
+  content: "[" counter(list-item) "] ";
 }
+
