@@ -1,27 +1,34 @@
 /* ==========================================================================
-   LeCAR Lab — Learning and Control for Agile Robotics
+   BMT Group — Bioinspired Robotics and Medical Technology
    Refined academic stylesheet
    Headings: Source Serif 4 · Body: Source Sans 3
    ========================================================================== */
 
 :root {
-  /* Palette taken from logo-2x.png (Multi-Scale Medical Robotics Center):
-     navy #1a3c55 · light blue #7fadb6 · yellow #eab04a */
+  /* Palette taken from logo-2x.png (Multi-Scale Medical Robotics Center),
+     which measures out to navy #1a3c55 (77% of its pixels), light blue #7fadb6
+     and yellow #eab04a. The whole neutral ramp is mixed from the navy so no
+     token drifts off-brand: the previous ink ramp sat at hue ~224 (a violet
+     navy) while the logo navy is hue 205. */
   --bg: #ffffff;
   --bg-alt: #f2f6f8;        /* pale blue tint, was warm cream */
-  --ink: #203367;           /* default text colour */
-  --ink-soft: #3f5680;
-  --muted: #5f708f;
+  --ink: #1a3c55;           /* the logo navy itself — 11.5:1 on white */
+  --ink-soft: #3c596e;      /* logo navy + 15% white */
+  --muted: #536d80;         /* logo navy + 25% white */
   --rule: #dce5ea;          /* light-blue tinted, was warm grey */
   --rule-strong: #b9ccd3;
-  --accent: #1a3c55;        /* logo navy — the primary brand colour */
+  --accent: #1a3c55;        /* logo navy — the primary brand colour (same as ink) */
   --accent-dark: #102a3d;
   --link: #2a6f8f;          /* logo light blue, darkened for contrast on white */
   --award: #9c6b18;         /* logo yellow, darkened to keep text on white AA-legible */
+  --logo-yellow: #eab04a;   /* logo yellow at full strength, for rules and fills rather than text */
+  /* Join-page callout, following the LeCAR original: the logo yellow mixed into
+     white at 92% for the fill and 75% for its hairline border, so the note is a
+     pale tint rather than a solid block. */
+  --callout-bg: #fdf9f0;
+  --callout-border: #faebd2;
   --selection: rgba(26, 60, 85, 0.14);
-  --shadow: rgba(32, 51, 103, 0.16);
-  --callout-bg: #f4f8fa;
-  --callout-border: #cfe0e6;
+  --shadow: rgba(26, 60, 85, 0.16);
   --serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
   --sans: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
   /* One corner radius for every image and video on the site, so the media
@@ -543,14 +550,24 @@ h3 + .section-note {
 
 /* --- Join page ----------------------------------------------------------- */
 
+/* The announcement slot at the top of the join page, matching the LeCAR Lab
+   original: a pale fill with a 4px brand rule down the left, rather than a solid
+   block. The fill and border are the logo yellow let down into white, and the
+   rule carries it at full strength.
+
+   The text is the logo yellow at full strength too, as requested. That is a
+   deliberate contrast trade: #eab04a sits at 1.85:1 on --callout-bg, so the note
+   reads as a decorative tint rather than AA-legible text. If a real announcement
+   ever has to be read, swap this one line for var(--award) (4.4:1) or
+   var(--accent) (11.0:1). */
 .callout {
   background: var(--callout-bg);
   border: 1px solid var(--callout-border);
-  border-left: 4px solid var(--award);
+  border-left: 4px solid var(--logo-yellow);
   border-radius: 0 8px 8px 0;
   padding: 13px 18px;
   margin: 26px 0;
-  color: var(--award);
+  color: var(--logo-yellow);
   font-weight: 600;
 }
 
