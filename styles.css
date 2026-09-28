@@ -571,6 +571,103 @@ h3 + .section-note {
   font-weight: 600;
 }
 
+/* --- Open positions (join page) ------------------------------------------- */
+
+/* "Responsibilities" and "Requirements" above each list. The source job ads
+   lettered these lists (a)(b)(c), and split the second heading between Job
+   Requirements and Qualifications; the label keeps the role without the
+   printed-ad letters, under one heading for every posting. */
+.position-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 16px 0 6px;
+}
+
+/* One posting, set up as an entry in the events list: the same serif title with
+   the same venue-style line under it, and the whole row acts as the disclosure.
+   The title is plain text here rather than the link the events rows carry,
+   since the only thing to open is the body below. */
+.position {
+  border-bottom: 1px solid var(--rule);
+}
+
+.position summary {
+  position: relative;
+  display: block;
+  /* The 24px clears the marker; .position-body repeats it so the expanded text
+     stays under the title rather than under the triangle. */
+  padding: 13px 0 13px 24px;
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+}
+
+.position summary::-webkit-details-marker {
+  display: none;
+}
+
+.position summary::before {
+  content: "\25B8";
+  position: absolute;
+  left: 4px;
+  top: 13px;
+  /* Matches .scholar-title's line-height, so the marker centres on the title's
+     first line instead of on the inherited 1.65 body leading. */
+  line-height: 1.35;
+  font-size: 0.85em;
+  color: var(--muted);
+  transition: transform 0.15s ease;
+}
+
+.position[open] summary::before {
+  transform: rotate(90deg);
+}
+
+/* .scholar-title and .scholar-venue are inline elements on the events page, so
+   their type settings are reused here but they stack inside the summary. */
+.position summary .scholar-title,
+.position summary .scholar-venue {
+  display: block;
+}
+
+/* --accent and --ink are the same navy, so an accent-coloured hover would show
+   nothing; the darker step is what makes it register. */
+.position summary:hover .scholar-title {
+  color: var(--accent-dark);
+}
+
+.position-body {
+  padding: 0 0 10px 24px;
+}
+
+/* Eight postings' worth of lists on one page, so the browser's default 40px
+   indent and 1em gaps read as slack. Scoped to the posting bodies rather than
+   applied to every ul on the site, which would reach .scholar-list. */
+.position-body ul {
+  margin: 0 0 1.1em;
+  padding-left: 1.35em;
+}
+
+.position-body li {
+  margin-bottom: 5px;
+}
+
+.position-body li:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 620px) {
+  /* Tighter than 24px: at phone widths the indent costs a noticeable slice of
+     the measure. 620px matches the breakpoint .scholar-list uses. */
+  .position summary,
+  .position-body {
+    padding-left: 18px;
+  }
+}
+
 /* --- Robots page ---------------------------------------------------------- */
 
 .robot-grid {
