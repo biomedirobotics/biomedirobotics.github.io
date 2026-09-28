@@ -500,16 +500,22 @@ h3 + .section-note {
   table-layout: fixed;
 }
 
+/* Column widths sized to the longest entry each has to hold at the 936px
+   content width, measured in Source Sans 3 at 0.97rem: col-pos needs 23.3% for
+   "Research Assistant Professor (2024)" and col-where needs 41.2% for
+   "Assistant Professor, Macau University of Science and Technology". These
+   leave both on one line; the 29/39 split that preceded them wrapped the second
+   of those, which cost one alumni row its single-line height. */
 .alumni .col-name {
   width: 22%;
 }
 
 .alumni .col-pos {
-  width: 29%;
+  width: 26%;
 }
 
 .alumni .col-where {
-  width: 39%;
+  width: 42%;
 }
 
 .alumni td {
