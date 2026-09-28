@@ -572,16 +572,6 @@ h3 + .section-note {
 
 /* --- Join page ----------------------------------------------------------- */
 
-/* The announcement slot at the top of the join page, matching the LeCAR Lab
-   original: a pale fill with a 4px brand rule down the left, rather than a solid
-   block. The fill and border are the logo yellow let down into white, and the
-   rule carries it at full strength.
-
-   The text is the logo yellow at full strength too, as requested. That is a
-   deliberate contrast trade: #eab04a sits at 1.85:1 on --callout-bg, so the note
-   reads as a decorative tint rather than AA-legible text. If a real announcement
-   ever has to be read, swap this one line for var(--award) (4.4:1) or
-   var(--accent) (11.0:1). */
 .callout {
   background: var(--callout-bg);
   border: 1px solid var(--callout-border);
