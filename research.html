@@ -125,10 +125,12 @@
                         scroll-margin-top: 16px;
                 }
 
+                /* No side rule: the banner is just the tinted band. Its corners
+                   are therefore symmetric, and the 22px padding reads the same
+                   on both sides. */
                 .pillar-head {
                         background: var(--bg-alt);
-                        border-left: 4px solid var(--accent);
-                        border-radius: 0 8px 8px 0;
+                        border-radius: 8px;
                         padding: 16px 22px;
                 }
 
@@ -203,7 +205,6 @@
                 }
 
                 .theme-summary {
-                        font-weight: 600;
                         color: var(--ink-soft);
                         margin: 0;
                 }
@@ -350,29 +351,29 @@
                         <article class="theme" id="locomotion">
                                 <figure class="theme-media">
                                         <img src="assets/brucelee.gif" loading="lazy" alt="A bipedal robot with an inertial tail kicking a punching bag">
-                                        <figcaption>A tailed biped keeping its balance mid-kick.</figcaption>
+                                        <!-- <figcaption>A tailed biped keeping its balance mid-kick.</figcaption> -->
                                 </figure>
                                 <h3><span class="num">1</span>Bioinspired Agile Locomotion</h3>
-                                <p class="theme-summary">Borrowing animals' tricks for leaping, falling and landing.</p>
+                                <!-- <p class="theme-summary">Borrowing animals' tricks for leaping, falling and landing.</p> -->
                                 <p class="label">Key directions</p>
                                 <ul class="directions">
-                                        <li>Aerial reorientation learned from kangaroo rats</li>
+                                        <li>Aerial reorientation inspired by kangaroo rats</li>
                                         <li>Morphable tails for self-righting and safe landing</li>
-                                        <li>Hopping robots: OMEGA, SIGMA and tailed bipeds</li>
+                                        <li>Hopping robots</li>
                                 </ul>
                         </article>
                         <article class="theme" id="control">
                                 <figure class="theme-media">
                                         <img src="assets/omega.gif" loading="lazy" alt="The OMEGA hopping robot hopping outdoors on the CUHK campus">
-                                        <figcaption>OMEGA hopping on the CUHK campus.</figcaption>
+                                        <!-- <figcaption>OMEGA hopping on the CUHK campus.</figcaption> -->
                                 </figure>
                                 <h3><span class="num">2</span>Control of Underactuated Systems</h3>
-                                <p class="theme-summary">Robust control that keeps robots stable in the wild.</p>
+                                <!-- <p class="theme-summary">Robust control that keeps robots stable in the wild.</p> -->
                                 <p class="label">Key directions</p>
                                 <ul class="directions">
                                         <li>Null-space avoidance for underactuated robots</li>
-                                        <li>QP control for reorientation and contact forces</li>
-                                        <li>Nonholonomic vehicles and rigid-body attitude</li>
+                                        <li>QP control of reorientation and contact forces</li>
+                                        <li>Nonholonomic vehicles and rigid-body attitude control</li>
                                 </ul>
                         </article>
                         </div>
@@ -382,35 +383,35 @@
                         <div class="pillar-head">
                                 <span class="eyebrow">Pillar II</span>
                                 <h2>Medical Technology</h2>
-                                <p>Built with surgeons and industry, from the bench toward products.</p>
+                                <p>Built with surgeons and industry, from the lab to real clinical settings.</p>
                         </div>
                         <div class="theme-grid">
                         <article class="theme" id="instruments">
                                 <figure class="theme-media">
                                         <img src="assets/drill.gif" loading="lazy" alt="Teleoperated surgical instrument constrained by translational and rotational virtual fixtures">
-                                        <figcaption>Virtual fixtures guiding a teleoperated instrument.</figcaption>
+                                        <!-- <figcaption>Virtual fixtures guiding a teleoperated instrument.</figcaption> -->
                                 </figure>
                                 <h3><span class="num">3</span>Dexterous Surgical Instruments</h3>
-                                <p class="theme-summary">Bendable instruments for confined surgical spaces.</p>
+                                <!-- <p class="theme-summary">Bendable instruments for confined surgical spaces.</p> -->
                                 <p class="label">Key directions</p>
                                 <ul class="directions">
-                                        <li>Inherently safe organ retraction via beam buckling</li>
+                                        <li>Virtual fixture for safe instrument control</li>
                                         <li>Steerable drills for spine and bone surgery</li>
-                                        <li>Continuum endoscopes with shared control</li>
+                                        <li>Bendable instruments for confined surgical spaces</li>
                                 </ul>
                         </article>
                         <article class="theme" id="autonomy">
                                 <figure class="theme-media">
                                         <img src="assets/pick.gif" loading="lazy" alt="A Cornerstone Robotics surgical robot autonomously picking up a surgical needle">
-                                        <figcaption>Autonomous needle picking on the Cornerstone Robotics robot.</figcaption>
+                                        <!-- <figcaption>Autonomous needle picking on the Cornerstone Robotics robot.</figcaption> -->
                                 </figure>
-                                <h3><span class="num">4</span>Surgical Autonomy and Robot Learning</h3>
-                                <p class="theme-summary">Perception and decisions that let robots do surgical tasks.</p>
+                                <h3><span class="num">4</span>Surgical Autonomy</h3>
+                                <!-- <p class="theme-summary">What it takes for a robot to do a surgical task.</p> -->
                                 <p class="label">Key directions</p>
                                 <ul class="directions">
-                                        <li>Visuomotor policies and world models for grasping</li>
-                                        <li>Robotic ultrasound: needle detection and alignment</li>
-                                        <li>Deformable and dexterous object manipulation</li>
+                                        <li>Surgical robot research kit</li>
+                                        <li>Soft tissue manipulation</li>
+                                        <li>Long-horizon surgical procedure learning</li>
                                 </ul>
                         </article>
                         </div>
