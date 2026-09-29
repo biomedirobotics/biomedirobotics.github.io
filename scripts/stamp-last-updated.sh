@@ -1,12 +1,13 @@
 #!/bin/sh
-# Refresh the footer's "Last updated" date on every page at once.
+# Refresh the fallback "Last updated" date on every page at once.
 #
-# The pages share one literal date rather than fetching it, because a browser
-# cannot read the commit date of a private repository: the unauthenticated
-# GitHub API answers 404 for one. If this site is ever published from a public
-# repo, drop this script and read the date at load instead, from
-#   https://api.github.com/repos/<owner>/<repo>/commits?per_page=1
-# writing commit.committer.date into the very same <span> this script targets.
+# The date a reader sees now comes from js/last-updated.js, which reads
+# the newest commit from the GitHub API now that the site is published from a
+# public repository. Each page also carries a literal date for the visits where
+# that fetch cannot run — no JavaScript, no network, or the 60 requests an hour
+# the unauthenticated API allows an address — and this script is what moves
+# those literals forward. Running it is optional housekeeping rather than part
+# of publishing.
 #
 # Only the contents of <span data-last-updated> are touched, so hand edits
 # elsewhere in these files are safe.
