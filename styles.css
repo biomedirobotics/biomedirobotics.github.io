@@ -1093,3 +1093,231 @@ the tooltip), venue right-aligned so the tags form a column. */
   content: "[" counter(list-item) "] ";
 }
 
+/* --- Event page (past workshops) ------------------------------------------ */
+/* One page documents one past workshop: banner, description, call for
+   contributions, programme and organizer cards. Each workshop gets its own
+   directory (case-2023-workshop/index.html) so the URL keeps the old
+   WordPress slug, with its photographs beside the page; events.html links to
+   that directory instead of back into the old site. The page therefore
+   reaches the shared sheet and the site chrome through ../ — the only page on
+   the site that does. */
+
+/* The title block replaces the plain <h2> that opens every other page, so the
+   event reads as an event rather than as a section: a kicker, the workshop
+   title, and its date and room. The title is the page's only h1; the other
+   pages have no equivalent heading to give one to. */
+.event-hero {
+  margin: 0 0 30px;
+}
+
+.event-hero .eyebrow {
+  margin: 0 0 8px;
+}
+
+.event-hero h1 {
+  margin: 0 0 10px;
+}
+
+.event-meta {
+  margin: 0;
+  font-size: 1.02rem;
+  color: var(--ink-soft);
+}
+
+/* Banner and equipment montage: both are wide, low images (1920x430 and
+   1920x450) that span the content column at their own ratio. */
+.event-media {
+  margin: 0 0 26px;
+}
+
+.event-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-media);
+}
+
+/* The two dated deadlines, as a list rather than as loose prose so they line
+   up. Same 1.2em indent and accent markers as .directions. */
+.event-dates {
+  margin: 0;
+  padding-left: 1.2em;
+}
+
+.event-dates li {
+  padding: 1px 0;
+}
+
+.event-dates li::marker {
+  color: var(--accent);
+}
+
+/* The award's sponsor, credited under the Awards copy rather than inside it,
+   so it reads as a footnote to the award. */
+.event-sponsor {
+  margin: 14px 0 0;
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+
+/* Programme: time on the left as a row header, the talk and its speaker on the
+   right. Row headers rather than cells so the time labels the row for assistive
+   tech, and tabular figures keep the ranges aligned down the column. */
+.programme {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.98rem;
+}
+
+.programme thead th {
+  padding: 0 14px 9px 0;
+  border-bottom: 1px solid var(--rule-strong);
+  text-align: left;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.programme th,
+.programme td {
+  vertical-align: top;
+  text-align: left;
+  padding: 12px 14px 13px 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.programme tbody th {
+  width: 11.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  font-variant-numeric: tabular-nums;
+}
+
+.programme-title {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 1.02rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.programme-speaker {
+  margin: 3px 0 0;
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+
+/* "(invited)" and "(Online)" were parentheticals inside the original
+   programme's talk lines; a pill keeps them clear of the talk and the speaker
+   name while still marking the row. */
+.programme-tag {
+  display: inline-block;
+  margin-left: 5px;
+  padding: 0 7px 1px;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  background: var(--bg-alt);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted);
+  vertical-align: 1px;
+  white-space: nowrap;
+}
+
+/* Below 620px the time and session columns no longer fit side by side, so each
+   row becomes a block — the time above the talk, as in the stacked alumni table
+   at 560px — and the header row, which labels those columns, is dropped. */
+@media (max-width: 620px) {
+  .programme thead {
+    display: none;
+  }
+
+  .programme,
+  .programme tbody,
+  .programme tr,
+  .programme th,
+  .programme td {
+    display: block;
+    width: auto;
+  }
+
+  .programme tr {
+    padding: 12px 0 13px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .programme th,
+  .programme td {
+    padding: 0;
+    border-bottom: none;
+  }
+
+  .programme tbody th {
+    font-size: 0.86rem;
+    color: var(--muted);
+  }
+
+  .programme-title {
+    margin-top: 3px;
+  }
+}
+
+/* Organizer cards: the people grid's card at a 3:4 portrait ratio instead of
+   1:1, because all seven photographs are portrait (their own ratios sit
+   between 0.72 and 0.73, so the baked-in crop costs a few pixels). Four
+   columns at the 936px content width, two on a phone. */
+.organizer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 28px 24px;
+}
+
+.organizer {
+  min-width: 0;
+  text-align: center;
+}
+
+.organizer img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-media);
+}
+
+.organizer-name {
+  margin: 11px 0 1px;
+  font-family: var(--serif);
+  font-size: 1.02rem;
+  font-weight: 600;
+}
+
+.organizer-role {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+/* The addresses run to 25 characters, more than a 190px card holds at 0.84rem,
+   so they are allowed to wrap rather than overhang the card. */
+.organizer-mail {
+  margin: 6px 0 0;
+  font-size: 0.84rem;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 560px) {
+  .organizer-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 26px 16px;
+  }
+}
+
