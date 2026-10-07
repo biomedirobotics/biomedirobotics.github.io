@@ -19,7 +19,7 @@
 # adding detail.
 #
 # The set is read from people.html, so it follows the page. The PI page's own
-# images under people/au/ are not cards and are left untouched.
+# images under au-kwok-wai-samuel/ are not cards and are left untouched.
 #
 # A file already at the target size is skipped rather than re-encoded, so
 # re-running is safe and never degrades an avatar twice. That means changing the

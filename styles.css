@@ -1098,9 +1098,9 @@ the tooltip), venue right-aligned so the tags form a column. */
    contributions, programme and organizer cards. Each workshop gets its own
    directory (case-2023-workshop/index.html) so the URL keeps the old
    WordPress slug, with its photographs beside the page; events.html links to
-   that directory instead of back into the old site. The page therefore
-   reaches the shared sheet and the site chrome through ../ — the only page on
-   the site that does. */
+   that directory instead of back into the old site. This page and the PI page
+   (au-kwok-wai-samuel/index.html) are the site's only directory pages, so they
+   reach the shared sheet and the site chrome through ../. */
 
 /* The title block replaces the plain <h2> that opens every other page, so the
    event reads as an event rather than as a section: a kicker, the workshop
